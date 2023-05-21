@@ -1,5 +1,4 @@
 const asyncHandler = require('express-async-handler');
-const bcrypt = require('bcryptjs');
 
 import User from "../models/userModel";
 
@@ -17,6 +16,7 @@ const authUser = asyncHandler (async (req: any, res: any) => {
 //@access   public
 const registerUser = asyncHandler (async (req: any, res: any) => {
 
+    console.log(req.body)
     const { name, email, password } = req.body
 
     const userExists = await User.findOne({ email: email})
@@ -41,8 +41,6 @@ const registerUser = asyncHandler (async (req: any, res: any) => {
         res.status(400);
         throw new Error(`Invalid user data`);
     };
-
-    res.status(200).json({ message: 'Register User'});
 
 });
 

@@ -1,23 +1,33 @@
 import React from 'react';
-import { View, TouchableOpacity, StyleSheet } from 'react-native';
+import { View, TouchableOpacity, StyleSheet, } from 'react-native';
+import { Link } from 'expo-router'; 
+import { Ionicons } from '@expo/vector-icons';
 
 const NavBar = () => {
-  const handleTabPress = (tab: any) => {
-    // Handle tab press event here
-    console.log(`Pressed ${tab}`);
-  };
 
   return (
     <View style={styles.container}>
-      <TouchableOpacity onPress={() => handleTabPress('Home')} style={styles.tab}>
-        {/* Render your Home tab icon here */}
-      </TouchableOpacity>
-      <TouchableOpacity onPress={() => handleTabPress('Search')} style={styles.tab}>
-        {/* Render your Search tab icon here */}
-      </TouchableOpacity>
-      <TouchableOpacity onPress={() => handleTabPress('Profile')} style={styles.tab}>
-        {/* Render your Profile tab icon here */}
-      </TouchableOpacity>
+
+        <TouchableOpacity style={styles.tab}>
+
+            <Link href={'/Register'}>
+                <Ionicons name='md-checkmark-circle' size={32} color="white" />
+            </Link>
+        
+        </TouchableOpacity>
+
+        <TouchableOpacity  style={styles.tab}>
+            <Link href={'/Login'}>
+                <Ionicons name='md-checkmark-circle' size={32} color="white" />
+            </Link>
+        </TouchableOpacity>
+
+        <TouchableOpacity style={styles.tab}>
+            <Link href={'/'}>
+                <Ionicons name='md-checkmark-circle' size={32} color="white" />
+            </Link>
+        </TouchableOpacity>
+
     </View>
   );
 };
@@ -27,9 +37,9 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-around',
     alignItems: 'center',
-    height: 120, // Adjust the height as desired
-    backgroundColor: 'lightgray',
-    position: 'absolute',
+    height: 80, // Adjust the height as desired
+    backgroundColor: 'black',
+    position: 'fixed',
     bottom: 0,
     left: 0,
     right: 0,
@@ -38,6 +48,8 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
+    height: '100%',
+    color: 'white',
   },
 });
 

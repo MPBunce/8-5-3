@@ -39,7 +39,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     height: 80, // Adjust the height as desired
     backgroundColor: 'black',
-    position: 'fixed',
     bottom: 0,
     left: 0,
     right: 0,

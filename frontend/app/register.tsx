@@ -1,13 +1,28 @@
-import { View, Text } from 'react-native'
+import { View, Text, Dimensions, StyleSheet, ScrollView } from 'react-native'
 import React from 'react'
 
 import NavBar from '../components/Navbar'
 
-export default function register() {
-  return (
-    <View>
-      <Text>register</Text>
-      <NavBar/>
-    </View>
-  )
+const Register = () => {
+
+    const screenHeight = Dimensions.get('window').height;
+    const scrollViewHeight = screenHeight * 0.85;
+
+    return (
+        <View>
+            <ScrollView style={[styles.scrollView, { height: scrollViewHeight }]}>
+                <Text>Register</Text>
+            </ScrollView>
+
+            <NavBar/>
+        </View>
+    )
 }
+
+const styles = StyleSheet.create({
+    scrollView: {
+        backgroundColor: 'blue'
+    },
+});
+
+export default Register;

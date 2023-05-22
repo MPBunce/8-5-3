@@ -6,7 +6,7 @@ import NavBar from '../components/Navbar'
 const Login = () => {
 
     const screenHeight = Dimensions.get('window').height;
-    const scrollViewHeight = screenHeight * 0.85;
+    const scrollViewHeight = screenHeight * 0.90;
 
     return (
         <View>

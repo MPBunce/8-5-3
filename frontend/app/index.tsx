@@ -3,10 +3,10 @@ import React from 'react'
 
 import NavBar from '../components/Navbar'
 
-const About = () => {
+const index = () => {
 
     const screenHeight = Dimensions.get('window').height;
-    const scrollViewHeight = screenHeight * 0.85;
+    const scrollViewHeight = screenHeight * 0.90;
 
   return (
     <View>
@@ -26,4 +26,4 @@ const styles = StyleSheet.create({
     },
 });
 
-export default About;
+export default index;

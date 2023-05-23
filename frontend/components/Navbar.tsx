@@ -10,14 +10,14 @@ const NavBar = () => {
 
         <TouchableOpacity style={styles.tab}>
 
-            <Link href={'/Register'}>
+            <Link href={'/register'}>
                 <Ionicons name='md-checkmark-circle' size={32} color="white" />
             </Link>
         
         </TouchableOpacity>
 
         <TouchableOpacity  style={styles.tab}>
-            <Link href={'/Login'}>
+            <Link href={'/login'}>
                 <Ionicons name='md-checkmark-circle' size={32} color="white" />
             </Link>
         </TouchableOpacity>

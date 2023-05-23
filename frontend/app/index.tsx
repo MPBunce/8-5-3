@@ -1,20 +1,14 @@
-import { View, Text, Dimensions, ScrollView, StyleSheet } from 'react-native'
+import { View, Text, Dimensions, ScrollView, StyleSheet, } from 'react-native'
 import React from 'react'
-
-import NavBar from '../components/Navbar'
+import { Link } from 'expo-router';
 
 const index = () => {
 
-    const screenHeight = Dimensions.get('window').height;
-    const scrollViewHeight = screenHeight * 0.90;
-
   return (
-    <View>
-        <ScrollView style={[styles.scrollView, { height: scrollViewHeight }]}>
-            <Text>About here</Text>
-        </ScrollView>
+    <View style={styles.scrollView}>
 
-        <NavBar/>
+        
+        <Link href={'/Login'}>inedx</Link>
 
     </View>
   )
@@ -22,7 +16,8 @@ const index = () => {
 
 const styles = StyleSheet.create({
     scrollView: {
-        backgroundColor: 'green'
+        backgroundColor: 'green',
+        paddingTop: 200,
     },
 });
 

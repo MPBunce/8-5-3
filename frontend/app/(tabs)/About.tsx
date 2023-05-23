@@ -5,7 +5,7 @@ const Login = () => {
     return(
         <View>
             <Text>
-                About
+                About page
             </Text>
         </View>
     )

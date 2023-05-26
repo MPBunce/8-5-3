@@ -8,11 +8,11 @@ const index = () => {
   const [text, setText] = useState('');
 
   return (
-    <View >
+    <View style={styles.center}>
 
 
       <TextInput
-        style={{height: 40, textAlign: 'center', marginTop: 200}}
+        style={{height: 40, textAlign: 'center', marginTop: 150}}
         placeholder="Enter Your Email"
         onChangeText={newText => setText(newText)}
         defaultValue={text}  
@@ -24,17 +24,16 @@ const index = () => {
         defaultValue={text}  
       />
 
-      <View style={styles.center}>
+   
 
-        <Link style={{marginTop: 250}} href={'/Register'} asChild>
-          <Pressable><Text>Create An Account</Text></Pressable>
-        </Link>
+      <Link style={{marginTop: 250}} href={'/Register'} asChild>
+        <Pressable><Text>Create An Account</Text></Pressable>
+      </Link>
 
-        <Link style={{marginTop: 20}} href={'/About'} asChild>
-          <Pressable><Text>About</Text></Pressable>
-        </Link>
-      </View>
-
+      <Link style={{marginTop: 20}} href={'/About'} asChild>
+        <Pressable><Text>About</Text></Pressable>
+      </Link>
+      
 
     </View>
   )

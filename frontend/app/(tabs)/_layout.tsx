@@ -17,7 +17,7 @@ export default () => {
                 options={{
                     tabBarLabel: 'Progress',
                     headerTitle: 'Progress',
-                    tabBarIcon: ({color, size}) => <FontAwesome5 name="list" size={size} color={color}/>
+                    tabBarIcon: ({color, size}) => <FontAwesome5 name="user" size={size} color={color}/>
                 }}
             />
             <Tabs.Screen
@@ -26,7 +26,7 @@ export default () => {
                     tabBarLabel: 'News',
                     headerTitle: 'Progress',
                     headerShown: false,
-                    tabBarIcon: ({color, size}) => <FontAwesome5 name="list" size={size} color={color}/>
+                    tabBarIcon: ({color, size}) => <FontAwesome5 name="news" size={size} color={color}/>
                 }}
             />
         </Tabs>

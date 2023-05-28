@@ -11,27 +11,25 @@ const StackLayout = () => {
 
   return (
 
+      <Stack>
 
-    <Stack>
+        <Provider store={store}>
+        <Stack.Screen name='index' options={{
+            headerTitle: 'Login',
+            headerShown: true
+        }}/>
+        <Stack.Screen name='Register' options={{
+            headerTitle: 'Register',
+            headerShown: true,
+        }}/>
 
-      <Stack.Screen name='index' options={{
-          headerTitle: 'Login',
-          headerShown: true
-      }}/>
-      <Stack.Screen name='Register' options={{
-          headerTitle: 'Register',
-          headerShown: true,
-      }}/>
+        <Stack.Screen name='About' options={{ presentation: 'modal'}}/>
 
-      <Stack.Screen name='About' options={{ presentation: 'modal'}}/>
+        <Stack.Screen name="(tabs)" options={{ headerShown: false}}/>
 
-      <Stack.Screen name="(tabs)" options={{ headerShown: false}}/>
-
-
-    </Stack>
-
-
-
+        </Provider>
+        
+      </Stack>
 
   )
 }

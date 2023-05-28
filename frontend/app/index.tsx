@@ -1,37 +1,53 @@
 import { View, Text, Dimensions, ScrollView, StyleSheet, Pressable, TextInput, Button} from 'react-native'
 import React from 'react'
 import { Link } from 'expo-router';
-import { useState } from 'react';
-import { Provider } from 'react-redux';
-import store from '../store';
+import { useState, useEffect } from 'react';
+import { useRouter } from 'expo-router';
+import { useDispatch, useSelector } from 'react-redux';
+import { useLoginMutation } from '../slices/usersApiSlice';
+import { setCredentials } from '../slices/authSlice';
 
 const index = () => {
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  const submitLogin = (e: any) => {
+  const dispatch = useDispatch();
+  const router = useRouter();
+
+  const [login, {isLoading}] = useLoginMutation();
+  const {userInfo} = useSelector((state: any) => state.auth);
+
+  useEffect( () => {
+    if(userInfo){
+      router.push('Home')
+    }
+  }, [navigator, userInfo] );
+
+  const submitLogin = async (e: any) => {
     e.preventDefault();
-    console.log(email);
-    console.log(password);
-    setEmail('')
-    setPassword('')
-  }
+    try{
+      console.log("submit:")
+      const res = await login({email, password}).unwrap();
+      dispatch(setCredentials({ ...res }))
+      router.push('Home')
+    } catch (error: any){
+      console.log(error?.data?.message || error.error)
+    }
+  };
 
   return (
 
-
     <View style={styles.center}>
 
-
       <TextInput
-        style={{height: 40, textAlign: 'center', marginTop: 150, width: 100}}
+        style={{width: 250, height: 40, textAlign: 'center', marginTop: 150}}
         placeholder="Enter Your Email"
         onChangeText={ (e: any) => setEmail(e)}
         value={email}  
       />
       <TextInput
-        style={{height: 40, textAlign: 'center', marginTop: 20}}
+        style={{width: 250, height: 40, textAlign: 'center', marginTop: 20}}
         placeholder="Enter Your Password"
         onChangeText={ (e: any) => setPassword(e)}
         value={password}  

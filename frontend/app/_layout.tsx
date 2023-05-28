@@ -16,11 +16,11 @@ const StackLayout = () => {
       <Stack.Screen name='Register' options={{
           headerTitle: 'Register',
           headerShown: true,
-          headerRight: () => <Button title='about' onPress={
-            () => {
-              router.push('About')
-            }
-          }/> 
+          // headerRight: () => <Button title='about' onPress={
+          //   () => {
+          //     router.push('About')
+          //   }
+          // }/> 
       }}/>
 
       <Stack.Screen name='About' options={{ presentation: 'modal'}}/>

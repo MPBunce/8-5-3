@@ -1,11 +1,20 @@
-import { View, Text, Dimensions, ScrollView, StyleSheet, Pressable, TextInput,} from 'react-native'
+import { View, Text, Dimensions, ScrollView, StyleSheet, Pressable, TextInput, Button} from 'react-native'
 import React from 'react'
 import { Link } from 'expo-router';
 import { useState } from 'react';
 
 const index = () => {
 
-  const [text, setText] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+
+  const submitLogin = (e: any) => {
+    e.preventDefault();
+    console.log(email);
+    console.log(password);
+    setEmail('')
+    setPassword('')
+  }
 
   return (
     <View style={styles.center}>
@@ -14,17 +23,22 @@ const index = () => {
       <TextInput
         style={{height: 40, textAlign: 'center', marginTop: 150}}
         placeholder="Enter Your Email"
-        onChangeText={newText => setText(newText)}
-        defaultValue={text}  
+        onChangeText={ (e) => setEmail(e)}
+        value={email}  
       />
       <TextInput
         style={{height: 40, textAlign: 'center', marginTop: 20}}
         placeholder="Enter Your Password"
-        onChangeText={newText => setText(newText)}
-        defaultValue={text}  
+        onChangeText={ (e) => setPassword(e)}
+        value={password}  
       />
 
-   
+      <Button
+        onPress={submitLogin}
+        title="Login"
+        color="#841584"
+        accessibilityLabel="Learn more about this purple button"
+      />
 
       <Link style={{marginTop: 250}} href={'/Register'} asChild>
         <Pressable><Text>Create An Account</Text></Pressable>
@@ -34,6 +48,7 @@ const index = () => {
         <Pressable><Text>About</Text></Pressable>
       </Link>
       
+     
 
     </View>
   )

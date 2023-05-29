@@ -20,41 +20,38 @@ const index = () => {
 
   return (
 
-    //<Provider store={store}>
 
-      <View style={styles.center}>
+    <View style={styles.center}>
 
 
-        <TextInput
-          style={{height: 40, textAlign: 'center', marginTop: 150, width: 100}}
-          placeholder="Enter Your Email"
-          onChangeText={ (e) => setEmail(e)}
-          value={email}  
-        />
-        <TextInput
-          style={{height: 40, textAlign: 'center', marginTop: 20}}
-          placeholder="Enter Your Password"
-          onChangeText={ (e) => setPassword(e)}
-          value={password}  
-        />
+      <TextInput
+        style={{height: 40, textAlign: 'center', marginTop: 150, width: 100}}
+        placeholder="Enter Your Email"
+        onChangeText={ (e: any) => setEmail(e)}
+        value={email}  
+      />
+      <TextInput
+        style={{height: 40, textAlign: 'center', marginTop: 20}}
+        placeholder="Enter Your Password"
+        onChangeText={ (e: any) => setPassword(e)}
+        value={password}  
+      />
 
-        <Pressable style={styles.button} onPress={submitLogin}>
-          <Text style={styles.text}>Login</Text>
-        </Pressable>
+      <Pressable style={styles.button} onPress={submitLogin}>
+        <Text style={styles.text}>Login</Text>
+      </Pressable>
 
-        <Link style={{marginTop: 250}} href={'/Register'} asChild>
-          <Pressable><Text>Create An Account</Text></Pressable>
-        </Link>
+      <Link style={{marginTop: 250}} href={'/Register'} asChild>
+        <Pressable><Text>Create An Account</Text></Pressable>
+      </Link>
 
-        <Link style={{marginTop: 20}} href={'/About'} asChild>
-          <Pressable><Text>About</Text></Pressable>
-        </Link>
-        
+      <Link style={{marginTop: 20}} href={'/About'} asChild>
+        <Pressable><Text>About</Text></Pressable>
+      </Link>
       
+    
 
-      </View>
-
-    //</Provider>
+    </View>
 
   )
 }

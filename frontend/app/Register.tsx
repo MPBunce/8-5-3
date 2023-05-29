@@ -1,7 +1,7 @@
 import { View, Text, Dimensions, ScrollView, StyleSheet, Pressable, TextInput, Button} from 'react-native'
-import React from 'react'
+import React, {useState}  from 'react';
 import { Link } from 'expo-router';
-import { useState } from 'react';
+
 
 const Register = () => {
 
@@ -25,25 +25,25 @@ const Register = () => {
             <TextInput
                 style={{height: 40, textAlign: 'center', marginTop: 150}}
                 placeholder="Enter Your Name"
-                onChangeText={ (e) => setName(e)}
+                onChangeText={ (e: any) => setName(e)}
                 value={name}  
             />
             <TextInput
                 style={{height: 40, textAlign: 'center', marginTop: 20}}
                 placeholder="Enter Your Email"
-                onChangeText={ (e) => setEmail(e)}
+                onChangeText={ (e: any) => setEmail(e)}
                 value={email}  
             />
             <TextInput
                 style={{height: 40, textAlign: 'center', marginTop: 20}}
                 placeholder="Enter Your Password"
-                onChangeText={ (e) => setPassword(e)}
+                onChangeText={ (e: any) => setPassword(e)}
                 value={password}  
             />
             <TextInput
                 style={{height: 40, textAlign: 'center', marginTop: 20}}
                 placeholder="Confirm Your Password"
-                onChangeText={ (e) => setPasswordCheck(e)}
+                onChangeText={ (e: any) => setPasswordCheck(e)}
                 value={passwordCheck}  
             />
 

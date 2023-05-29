@@ -11,9 +11,10 @@ const StackLayout = () => {
 
   return (
 
+    <Provider store={store}>
+
       <Stack>
 
-        <Provider store={store}>
         <Stack.Screen name='index' options={{
             headerTitle: 'Login',
             headerShown: true
@@ -27,9 +28,11 @@ const StackLayout = () => {
 
         <Stack.Screen name="(tabs)" options={{ headerShown: false}}/>
 
-        </Provider>
-        
+
       </Stack>
+
+
+  </Provider>
 
   )
 }

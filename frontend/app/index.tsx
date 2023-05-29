@@ -3,9 +3,12 @@ import React from 'react'
 import { Link } from 'expo-router';
 import { useState, useEffect } from 'react';
 import { useRouter } from 'expo-router';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector, useStore } from 'react-redux';
 import { useLoginMutation } from '../slices/usersApiSlice';
 import { setCredentials } from '../slices/authSlice';
+
+import {Provider} from 'react-redux';
+import store from '../store';
 
 const index = () => {
 
@@ -24,12 +27,16 @@ const index = () => {
     }
   }, [navigator, userInfo] );
 
+  // const submitLogin = () => {
+
+  // }
+
   const submitLogin = async (e: any) => {
     e.preventDefault();
     try{
       console.log("submit:")
       const res = await login({email, password}).unwrap();
-      dispatch(setCredentials({ ...res }))
+      dispatch(setCredentials({...res}))
       router.push('Home')
     } catch (error: any){
       console.log(error?.data?.message || error.error)

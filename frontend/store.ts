@@ -1,4 +1,4 @@
-const configureStore = require('@reduxjs/toolkit')
+import { configureStore } from 'redux';
 
 import authReducer from './slices/authSlice'
 

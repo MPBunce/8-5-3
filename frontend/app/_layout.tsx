@@ -10,33 +10,28 @@ const StackLayout = () => {
   const router = useRouter();
 
   return (
-    <Provider store={store}>
-
-      <Stack>
-
-        <Stack.Screen name='index' options={{
-            headerTitle: 'Login',
-            headerShown: true
-        }}/>
-        <Stack.Screen name='Register' options={{
-            headerTitle: 'Register',
-            headerShown: true,
-            // headerRight: () => <Button title='about' onPress={
-            //   () => {
-            //     router.push('About')
-            //   }
-            // }/> 
-        }}/>
-
-        <Stack.Screen name='About' options={{ presentation: 'modal'}}/>
-
-        <Stack.Screen name="(tabs)" options={{ headerShown: false}}/>
 
 
-      </Stack>
+    <Stack>
+
+      <Stack.Screen name='index' options={{
+          headerTitle: 'Login',
+          headerShown: true
+      }}/>
+      <Stack.Screen name='Register' options={{
+          headerTitle: 'Register',
+          headerShown: true,
+      }}/>
+
+      <Stack.Screen name='About' options={{ presentation: 'modal'}}/>
+
+      <Stack.Screen name="(tabs)" options={{ headerShown: false}}/>
 
 
-    </Provider>
+    </Stack>
+
+
+
 
   )
 }

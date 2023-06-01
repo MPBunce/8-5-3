@@ -7,9 +7,6 @@ import { useDispatch, useSelector, useStore } from 'react-redux';
 import { useLoginMutation } from '../slices/usersApiSlice';
 import { setCredentials } from '../slices/authSlice';
 
-import {Provider} from 'react-redux';
-import store from '../store';
-
 const index = () => {
 
   const [email, setEmail] = useState('');
@@ -25,21 +22,22 @@ const index = () => {
     if(userInfo){
       router.push('Home')
     }
-  }, [navigator, userInfo] );
+  }, [userInfo] );
 
-  // const submitLogin = () => {
-
-  // }
 
   const submitLogin = async (e: any) => {
     e.preventDefault();
-    try{
+    try {
+
       console.log("submit:")
       const res = await login({email, password}).unwrap();
+      console.log('here')      
       dispatch(setCredentials({...res}))
-      router.push('Home')
+
     } catch (error: any){
+
       console.log(error?.data?.message || error.error)
+
     }
   };
 

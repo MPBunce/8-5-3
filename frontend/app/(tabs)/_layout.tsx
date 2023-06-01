@@ -23,7 +23,7 @@ export default () => {
             <Tabs.Screen
                 name="list"
                 options={{
-                    tabBarLabel: 'News',
+                    tabBarLabel: 'Settings',
                     headerTitle: 'Progress',
                     headerShown: false,
                     tabBarIcon: ({color, size}) => <FontAwesome5 name="news" size={size} color={color}/>

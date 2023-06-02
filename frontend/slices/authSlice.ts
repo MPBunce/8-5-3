@@ -1,29 +1,16 @@
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { createSlice } from '@reduxjs/toolkit';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-// const getUserInfo = async () => {
-//     const asyncUserInfo = await AsyncStorage.getItem('userInfo');
-//     const parsedUserInfo = asyncUserInfo ? JSON.parse(asyncUserInfo) : null;
-//     return parsedUserInfo;
-// }
+const getUserInfo = async () => {
+    const asyncUserInfo = await AsyncStorage.getItem('userInfo');
+    const parsedUserInfo = asyncUserInfo ? JSON.parse(asyncUserInfo) : null;
+    return parsedUserInfo;
+}
 
-// const userInfo = getUserInfo() as unknown as string;
+const userInfo = getUserInfo() as unknown as string;
 
-// const initialState = {
-//   userInfo: userInfo as string | null, // Type assertion to string | null
-// };
-
-export const getUserInfo = createAsyncThunk(
-    'auth/getUserInfo',
-    async () => {
-      const asyncUserInfo = await AsyncStorage.getItem('userInfo');
-      const parsedUserInfo = asyncUserInfo ? JSON.parse(asyncUserInfo) : null;
-      return parsedUserInfo;
-    }
-  );
-  
 const initialState = {
-    userInfo: null as string | null, // Type assertion to string | null
+  userInfo: userInfo as string | null, // Type assertion to string | null
 };
 
 const authSlice = createSlice({

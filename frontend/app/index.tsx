@@ -18,11 +18,11 @@ const index = () => {
   const [login, {isLoading}] = useLoginMutation();
   const {userInfo} = useSelector((state: any) => state.auth);
 
-  useEffect( () => {
-    if(userInfo){
-      router.push('/')   
-    }
-  }, [router, userInfo] );
+  // useEffect( () => {
+  //   if(userInfo){
+  //     router.push('/')   
+  //   }
+  // }, [ userInfo] );
 
 
   const submitLogin = async (e: any) => {
@@ -31,8 +31,8 @@ const index = () => {
 
       console.log("submit:")
       const res = await login({email, password}).unwrap();
-      console.log(res.json())      
-      dispatch(setCredentials({ ...res  }))
+      console.log(res.payload)      
+      dispatch(setCredentials(res.payload))
       console.log("now we nav")
       router.push('Home')
     } catch (error: any){
@@ -48,16 +48,18 @@ const index = () => {
 
   return (
 
+    //Add touchable to close input forms
+
     <View style={styles.center}>
 
       <TextInput
-        style={{width: 250, height: 40, textAlign: 'center', marginTop: 150}}
+        style={{width: "90%", height: 40, textAlign: 'center', marginTop: 150, borderColor: "black", borderWidth: 1, borderRadius: 10,}}
         placeholder="Enter Your Email"
         onChangeText={ (e: any) => setEmail(e)}
         value={email}  
       />
       <TextInput
-        style={{width: 250, height: 40, textAlign: 'center', marginTop: 20}}
+        style={{width: "90%", height: 40, textAlign: 'center', marginTop: 30, borderColor: "black", borderWidth: 1, borderRadius: 10,}}
         placeholder="Enter Your Password"
         onChangeText={ (e: any) => setPassword(e)}
         value={password}  

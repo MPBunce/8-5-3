@@ -7,7 +7,14 @@ const store = configureStore({
         auth: authReducer,
         [apiSlice.reducerPath]: apiSlice.reducer,
     },
-    middleware: (getDefaultMiddleware: any) => getDefaultMiddleware(),
+    middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({
+      serializableCheck: {
+        // Ignore these paths in the state
+        ignoredActions: [],
+        ignoredPaths: ['auth.userInfo'],
+      },
+    }),
     devTools: true
 });
 

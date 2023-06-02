@@ -5,16 +5,17 @@ import { useRouter } from 'expo-router'
 import store from '../store'
 import { Provider } from 'react-redux';
 import { NavigationContainer } from '@react-navigation/native'
+import { createNavigationContainerRef } from '@react-navigation/native';
+
 
 const StackLayout = () => {
 
-  const router = useRouter();
+  const navigationRef = createNavigationContainerRef()
 
   return (
 
     <Provider store={store}>
 
-      {/* <NavigationContainer > */}
         <Stack>
 
           <Stack.Screen name='index' options={{
@@ -31,7 +32,7 @@ const StackLayout = () => {
           <Stack.Screen name="(tabs)" options={{ headerShown: false}}/>
 
         </Stack>
-      {/* </NavigationContainer> */}
+
 
     </Provider>
 

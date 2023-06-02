@@ -20,9 +20,9 @@ const index = () => {
 
   useEffect( () => {
     if(userInfo){
-      router.push('Home')
+      router.push('/')   
     }
-  }, [userInfo] );
+  }, [router, userInfo] );
 
 
   const submitLogin = async (e: any) => {
@@ -31,15 +31,20 @@ const index = () => {
 
       console.log("submit:")
       const res = await login({email, password}).unwrap();
-      console.log('here')      
-      dispatch(setCredentials({...res}))
-
+      console.log(res.json())      
+      dispatch(setCredentials({ ...res  }))
+      console.log("now we nav")
+      router.push('Home')
     } catch (error: any){
 
       console.log(error?.data?.message || error.error)
 
     }
   };
+
+  const submitTest = () =>{
+    console.log(userInfo)
+  }
 
   return (
 
@@ -60,6 +65,10 @@ const index = () => {
 
       <Pressable style={styles.button} onPress={submitLogin}>
         <Text style={styles.text}>Login</Text>
+      </Pressable>
+
+      <Pressable style={styles.button} onPress={submitTest}>
+        <Text style={styles.text}>Test</Text>
       </Pressable>
 
       <Link style={{marginTop: 250}} href={'/Register'} asChild>

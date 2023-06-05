@@ -7,6 +7,8 @@ import { useDispatch, useSelector, useStore } from 'react-redux';
 import { useLoginMutation } from '../slices/usersApiSlice';
 import { setCredentials } from '../slices/authSlice';
 
+
+
 const index = () => {
 
   const [email, setEmail] = useState('');
@@ -18,11 +20,11 @@ const index = () => {
   const [login, {isLoading}] = useLoginMutation();
   const {userInfo} = useSelector((state: any) => state.auth);
 
-  // useEffect( () => {
-  //   if(userInfo){
-  //     router.push('/')   
-  //   }
-  // }, [ userInfo] );
+  useEffect( () => {
+    if(userInfo){
+      router.push('/Home')   
+    }
+  }, [userInfo] );
 
   const submitLogin = async (e: any) => {
     e.preventDefault();
@@ -31,8 +33,9 @@ const index = () => {
 
       console.log("submit:")
       const loginData = {email, password}
-      const res = await login(loginData).unwrap()
-      console.log(res)
+      const loginResult = await login(loginData).unwrap();
+      const res = loginResult 
+      console.log('fuifflied', res)
       dispatch(setCredentials(res))
       console.log("now we nav")
 
@@ -41,10 +44,6 @@ const index = () => {
     }
 
   };
-
-  const submitTest = () =>{
-    console.log(userInfo)
-  }
 
   return (
 
@@ -69,10 +68,6 @@ const index = () => {
         <Text style={styles.text}>Login</Text>
       </Pressable>
 
-      <Pressable style={styles.button} onPress={submitTest}>
-        <Text style={styles.text}>Test</Text>
-      </Pressable>
-
       <Link style={{marginTop: 250}} href={'/Register'} asChild>
         <Pressable><Text>Create An Account</Text></Pressable>
       </Link>
@@ -80,8 +75,6 @@ const index = () => {
       <Link style={{marginTop: 20}} href={'/About'} asChild>
         <Pressable><Text>About</Text></Pressable>
       </Link>
-      
-    
 
     </View>
 

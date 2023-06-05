@@ -7,7 +7,7 @@ const USERS_URL = 'http://localhost:6969/api/users'
 export const userApiSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
     login: builder.mutation({
-      query: (data) => ({
+      query: (data: any) => ({
         url: `${USERS_URL}/auth`,
         method: 'POST',
         body: data,
@@ -20,14 +20,14 @@ export const userApiSlice = apiSlice.injectEndpoints({
       }),
     }),
     register: builder.mutation({
-      query: (data) => ({
+      query: (data: any) => ({
         url: `${USERS_URL}`,
         method: 'POST',
         body: data,
       }),
     }),
     updateUser: builder.mutation({
-      query: (data) => ({
+      query: (data: any) => ({
         url: `${USERS_URL}/profile`,
         method: 'PUT',
         body: data,

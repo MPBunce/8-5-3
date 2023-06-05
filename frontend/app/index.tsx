@@ -24,22 +24,22 @@ const index = () => {
   //   }
   // }, [ userInfo] );
 
-
   const submitLogin = async (e: any) => {
     e.preventDefault();
+
     try {
 
       console.log("submit:")
-      const res = await login({email, password}).unwrap();
-      console.log(res.payload)      
-      dispatch(setCredentials(res.payload))
+      const loginData = {email, password}
+      const res = await login(loginData).unwrap()
+      console.log(res)
+      dispatch(setCredentials(res))
       console.log("now we nav")
-      router.push('Home')
-    } catch (error: any){
 
+    } catch (error: any) {
       console.log(error?.data?.message || error.error)
-
     }
+
   };
 
   const submitTest = () =>{

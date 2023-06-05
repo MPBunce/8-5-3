@@ -7,8 +7,6 @@ import { useDispatch, useSelector, useStore } from 'react-redux';
 import { useLoginMutation } from '../slices/usersApiSlice';
 import { setCredentials } from '../slices/authSlice';
 
-
-
 const index = () => {
 
   const [email, setEmail] = useState('');
@@ -28,21 +26,18 @@ const index = () => {
 
   const submitLogin = async (e: any) => {
     e.preventDefault();
-
+    //const loginData: any = { email: "mattb1299@gmail.com", password: "123" };
+    const loginData = {email, password};
     try {
 
-      console.log("submit:")
-      const loginData = {email, password}
       const loginResult = await login(loginData).unwrap();
-      const res = loginResult 
-      console.log('fuifflied', res)
-      dispatch(setCredentials(res))
-      console.log("now we nav")
+      dispatch(setCredentials(loginResult))
 
     } catch (error: any) {
-      console.log(error?.data?.message || error.error)
-    }
 
+      console.log(error?.data?.message || error.error)
+
+    }
   };
 
   return (

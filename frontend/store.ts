@@ -1,6 +1,10 @@
 import { configureStore } from '@reduxjs/toolkit';
+import { persistStore, persistReducer } from 'redux-persist'
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import authReducer from './slices/authSlice';
 import { apiSlice } from './slices/apiSlice';
+
+
 
 const store = configureStore({
   reducer: {
@@ -11,5 +15,6 @@ const store = configureStore({
     getDefaultMiddleware().concat(apiSlice.middleware),
   devTools: true,
 });
+
 
 export default store;

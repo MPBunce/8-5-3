@@ -6,7 +6,7 @@ import store from '../store'
 import { Provider } from 'react-redux';
 import { NavigationContainer } from '@react-navigation/native'
 import { createNavigationContainerRef } from '@react-navigation/native';
-
+import { PersistGate } from 'redux-persist/integration/react';
 
 const StackLayout = () => {
 
@@ -15,7 +15,7 @@ const StackLayout = () => {
   return (
 
     <Provider store={store}>
-
+      
         <Stack>
 
           <Stack.Screen name='index' options={{

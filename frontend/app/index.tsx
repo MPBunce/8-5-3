@@ -2,7 +2,6 @@ import { View, Text, Dimensions, ScrollView, StyleSheet, Pressable, TextInput, B
 import React from 'react'
 import { Link } from 'expo-router';
 import { useState, useEffect } from 'react';
-import { useRouter } from 'expo-router';
 import { useDispatch, useSelector, useStore } from 'react-redux';
 import { useLoginMutation } from '../slices/usersApiSlice';
 import { setCredentials } from '../slices/authSlice';
@@ -13,16 +12,9 @@ const index = () => {
   const [password, setPassword] = useState('');
 
   const dispatch = useDispatch();
-  const router = useRouter();
 
   const [login, {isLoading}] = useLoginMutation();
   const {userInfo} = useSelector((state: any) => state.auth);
-
-  useEffect( () => {
-    if(userInfo){
-      router.push('/Home')   
-    }
-  }, [userInfo] );
 
   const submitLogin = async (e: any) => {
     e.preventDefault();

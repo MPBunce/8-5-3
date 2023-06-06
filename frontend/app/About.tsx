@@ -2,7 +2,7 @@ import { View, Text } from "react-native";
 import React from "react";
 import { useRouter } from 'expo-router'
 
-const Login = () => {
+const About = () => {
 
     return(
         <View>
@@ -13,4 +13,4 @@ const Login = () => {
     )
 }
 
-export default Login;
+export default About;

@@ -12,6 +12,7 @@ const StackLayout = () => {
 
   const navigationRef = createNavigationContainerRef()
 
+  
   return (
 
     <Provider store={store}>

@@ -3,13 +3,17 @@ import React from 'react'
 import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { useRouter } from 'expo-router';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const Workouts = () => {
+  const router = useRouter();
+  const {userInfo} = useSelector((state: any) => state.auth);
 
-  //const userInfo = await AsyncStorage.getItem('userInfo');
-
-
+  useEffect( () => {
+    if(userInfo === null){
+      router.back();
+    }
+    console.log(userInfo)
+  })
 
   return (
     <View>

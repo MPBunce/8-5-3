@@ -1,21 +1,23 @@
 import { View, Text } from 'react-native'
 import React, { useEffect } from 'react'
-
 import { useSelector } from 'react-redux'
-import { useRouter } from 'expo-router'
+import { useNavigation, useFocusEffect } from '@react-navigation/native';
 
 const Progress = () => {
 
-  const router = useRouter();
+  const navigation = useNavigation();
   const {userInfo} = useSelector((state: any) => state.auth);
+  const myRoute: any = [{ name: 'index' }];
 
-
-  useEffect( () => {
-    if(userInfo === null){
-      router.replace('')
+  useFocusEffect(() => {
+    if (userInfo === null) {
+      navigation.reset({
+        index: 0,
+        routes:  myRoute,
+      });
     }
-    console.log(userInfo)
-  })
+  });
+
 
   return (
     <View>

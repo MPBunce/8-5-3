@@ -1,10 +1,10 @@
 import { apiSlice } from "./apiSlice";
 
-//web computer
-//const USERS_URL = 'http://localhost:6969/api/users'
+//My House
+const USERS_URL = 'http://192.168.2.18:6969/api/users'
 
-//iphone
-const USERS_URL = 'http://192.168.2.160:6969/api/users'
+//Tenzins House
+//const USERS_URL = 'http://192.168.2.160:6969/api/users'
 
 export const userApiSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({

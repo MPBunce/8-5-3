@@ -11,13 +11,6 @@ const index = () => {
   const {userInfo} = useSelector((state: any) => state.auth);
 
 
-  useEffect( () => {
-    if(userInfo === null){
-      router.replace('')
-    }
-    console.log(userInfo)
-  })
-
   return (
     <View>
         

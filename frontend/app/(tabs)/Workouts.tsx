@@ -1,19 +1,22 @@
 import { View, Text } from 'react-native'
 import React from 'react'
-import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
-import { useRouter } from 'expo-router';
+import { useNavigation, useFocusEffect } from '@react-navigation/native';
 
 const Workouts = () => {
-  const router = useRouter();
-  const {userInfo} = useSelector((state: any) => state.auth);
 
-  useEffect( () => {
-    if(userInfo === null){
-      router.back();
+  const navigation = useNavigation();
+  const {userInfo} = useSelector((state: any) => state.auth);
+  const myRoute: any = [{ name: 'index' }];
+
+  useFocusEffect(() => {
+    if (userInfo === null) {
+      navigation.reset({
+        index: 0,
+        routes:  myRoute,
+      });
     }
-    console.log(userInfo)
-  })
+  });
 
   return (
     <View>

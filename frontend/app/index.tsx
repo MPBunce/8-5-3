@@ -5,6 +5,7 @@ import { useState, useEffect } from 'react';
 import { useDispatch, useSelector, useStore } from 'react-redux';
 import { useLoginMutation } from '../slices/usersApiSlice';
 import { setCredentials } from '../slices/authSlice';
+import { useRouter } from 'expo-router';
 
 const index = () => {
 
@@ -12,23 +13,25 @@ const index = () => {
   const [password, setPassword] = useState('');
 
   const dispatch = useDispatch();
+  const router = useRouter();
 
   const [login, {isLoading}] = useLoginMutation();
   const {userInfo} = useSelector((state: any) => state.auth);
 
+  useEffect( () => {
+    if(userInfo){
+      router.push('Workouts');
+    }
+  })
+
   const submitLogin = async (e: any) => {
     e.preventDefault();
-    //const loginData: any = { email: "mattb1299@gmail.com", password: "123" };
     const loginData = {email, password};
     try {
-
       const loginResult = await login(loginData).unwrap();
       dispatch(setCredentials(loginResult))
-
     } catch (error: any) {
-
       console.log(error?.data?.message || error.error)
-
     }
   };
 

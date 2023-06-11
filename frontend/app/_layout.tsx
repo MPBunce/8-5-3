@@ -7,23 +7,17 @@ import { Provider, useSelector } from 'react-redux';
 import { NavigationContainer } from '@react-navigation/native'
 import { createNavigationContainerRef } from '@react-navigation/native';
 import { PersistGate } from 'redux-persist/integration/react';
+import { useRootNavigationState } from 'expo-router'
+import { setCredentials } from '../slices/authSlice';
 
 const StackLayout = () => {
 
-  // const {userInfo} = useSelector((state: any) => state.auth);
-  // const navigationRef = createNavigationContainerRef()
-  // const router = useRouter();
+  const state = useRootNavigationState();
 
-  // useEffect( () => {
-  //   if(userInfo === null){
-  //     router.push('/about')
-  //   }
-  //   console.log(userInfo)
-  // })
-  
   return (
 
     <Provider store={store}>
+      
       
         <Stack>
 

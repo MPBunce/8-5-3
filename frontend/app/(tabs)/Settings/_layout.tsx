@@ -22,7 +22,7 @@ const StackLayout = () => {
   return (
     <Stack>
       <Stack.Screen name='index' options={{
-          headerTitle: 'index',
+          headerTitle: 'Settings',
           headerShown: true,
           headerLeft: () => null,
       }}/>

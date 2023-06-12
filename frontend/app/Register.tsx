@@ -1,27 +1,46 @@
 import { View, Text, Dimensions, ScrollView, StyleSheet, Pressable, TextInput, Button} from 'react-native'
-import React, {useState}  from 'react';
-import { Link } from 'expo-router';
-
+import React, {useState, useEffect}  from 'react';
+import { useSelector } from 'react-redux'
+import { useNavigation, useFocusEffect } from '@react-navigation/native';
+import { useRegisterMutation } from '../slices/usersApiSlice';
+import { setCredentials } from '../slices/authSlice';
+import { useDispatch} from 'react-redux';
+import { error } from 'console';
 
 const Register = () => {
+
+  const navigation = useNavigation();
+
+  useEffect(() => {
+    if (userInfo) {
+      navigation.navigate('(tabs)' as never);
+    }
+  });
 
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [passwordCheck, setPasswordCheck] = useState('');  
 
-  const submitLogin = (e: any) => {
+  const [register, {isLoading}] = useRegisterMutation();
+  const {userInfo} = useSelector((state: any) => state.auth);
+
+  const dispatch = useDispatch();
+
+  const submitLogin = async (e: any) => {
+        
     e.preventDefault();
+    if (password !== passwordCheck){
+      return;
+    } else {
 
-    console.log(name);    
-    console.log(email);
-    console.log(password);
-    console.log(passwordCheck);
+      const regData = {name, email, password};
+      try {
+        const regResult = await register(regData).unwrap();
+        dispatch(setCredentials(regResult))
+      } catch (error: any) {
 
-    if( password === passwordCheck){
-      console.log(true)
-    }else{
-      console.log(false)
+      }
     }
 
     setName('')

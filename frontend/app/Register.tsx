@@ -12,11 +12,22 @@ const Register = () => {
 
   const submitLogin = (e: any) => {
     e.preventDefault();
+
+    console.log(name);    
     console.log(email);
     console.log(password);
+    console.log(passwordCheck);
+
+    if( password === passwordCheck){
+      console.log(true)
+    }else{
+      console.log(false)
+    }
+
+    setName('')
     setEmail('')
     setPassword('')
-    setName('')
+    setPasswordCheck('')
   }
 
   return (
@@ -53,7 +64,7 @@ const Register = () => {
       </Pressable>
 
     </View>
-    
+
   )
 };
 

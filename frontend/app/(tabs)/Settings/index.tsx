@@ -18,14 +18,11 @@ const index = () => {
   const submitLogout = async () => {
 
     try{
-
-      await logoutApiCall(userInfo).unwrap();
+      const grabage: any = ""
+      await logoutApiCall(grabage).unwrap();
       dispatch( logout(userInfo) );
-
     } catch (error ) {
-
       console.log(error)
-
     }
   }
 

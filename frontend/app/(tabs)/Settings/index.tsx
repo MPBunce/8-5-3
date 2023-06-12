@@ -7,16 +7,13 @@ import { useRouter } from 'expo-router'
 
 const index = () => {
 
-  const router = useRouter();
-  const {userInfo} = useSelector((state: any) => state.auth);
-
 
   return (
     <View>
         
-      <Link href="list/one">News 1</Link>
-      <Link href="list/two">News 1</Link>
-      <Link href="list/three">News 1</Link>
+      <Link href="Settings/one">News 1</Link>
+      <Link href="Settings/two">News 1</Link>
+      <Link href="Settings/three">News 1</Link>
 
     </View>
   )

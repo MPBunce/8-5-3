@@ -12,8 +12,6 @@ import { setCredentials } from '../slices/authSlice';
 
 const StackLayout = () => {
 
-  const state = useRootNavigationState();
-
   return (
 
     <Provider store={store}>

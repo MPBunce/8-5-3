@@ -1,13 +1,14 @@
 import { View, Text } from 'react-native'
 import React, { useEffect } from 'react'
 
-const Progress = () => {
+const one = () => {
+
 
   return (
     <View>
-      <Text>Progress</Text>
+      <Text>one</Text>
     </View>
   )
 }
 
-export default Progress
+export default one

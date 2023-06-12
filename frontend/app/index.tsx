@@ -2,10 +2,11 @@ import { View, Text, Dimensions, ScrollView, StyleSheet, Pressable, TextInput, B
 import React from 'react'
 import { Link } from 'expo-router';
 import { useState, useEffect } from 'react';
-import { useDispatch, useSelector, useStore } from 'react-redux';
+import { useDispatch} from 'react-redux';
 import { useLoginMutation } from '../slices/usersApiSlice';
 import { setCredentials } from '../slices/authSlice';
-import { useRouter } from 'expo-router';
+import { useSelector } from 'react-redux'
+import { useNavigation, useFocusEffect } from '@react-navigation/native';
 
 const index = () => {
 
@@ -13,16 +14,16 @@ const index = () => {
   const [password, setPassword] = useState('');
 
   const dispatch = useDispatch();
-  const router = useRouter();
+  const navigation = useNavigation();
 
   const [login, {isLoading}] = useLoginMutation();
   const {userInfo} = useSelector((state: any) => state.auth);
 
-  useEffect( () => {
-    if(userInfo){
-      router.push('Workouts');
+  useEffect(() => {
+    if (userInfo) {
+      navigation.navigate('(tabs)' as never);
     }
-  })
+  });
 
   const submitLogin = async (e: any) => {
     e.preventDefault();

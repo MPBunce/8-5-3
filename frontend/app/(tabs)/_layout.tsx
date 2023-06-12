@@ -1,9 +1,26 @@
 import { Tabs } from "expo-router";
 import { FontAwesome5 } from "@expo/vector-icons";
+import { useSelector } from 'react-redux'
+import { useNavigation, useFocusEffect } from '@react-navigation/native';
 
 const userInterface = () => {
+
+    const navigation = useNavigation();
+    const {userInfo} = useSelector((state: any) => state.auth);
+    const myRoute: any = [{ name: 'index' }];
+  
+    useFocusEffect(() => {
+      if (userInfo === null) {
+        navigation.reset({
+          index: 0,
+          routes:  myRoute,
+        });
+      }
+    });
+
     return(
         <Tabs>
+
             <Tabs.Screen
                 name="Progress"
                 options={{
@@ -21,7 +38,7 @@ const userInterface = () => {
                 }}
             />
             <Tabs.Screen
-                name="list"
+                name="Settings"
                 options={{
                     tabBarLabel: 'Settings',
                     headerTitle: 'Settings',
@@ -29,6 +46,7 @@ const userInterface = () => {
                     tabBarIcon: ({color, size}) => <FontAwesome5 name="user-cog" size={size} color={color}/>
                 }}
             />
+            
         </Tabs>
     )
 }

@@ -1,6 +1,7 @@
 const corsOptions = {
-    origin: '*',
-    optionsSuccessStatus: 200 // For legacy browser support
+    origin: 'http://localhost:19000',
+    optionsSuccessStatus: 200, // For legacy browser support
+    credentials: true, 
 }
 
 export default corsOptions;

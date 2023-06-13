@@ -1,4 +1,4 @@
-import { View, Text, Pressable } from 'react-native'
+import { View, Text, Pressable, StyleSheet } from 'react-native'
 import { Link } from 'expo-router'
 import React, { useEffect } from 'react'
 
@@ -14,7 +14,6 @@ const index = () => {
   const [logoutApiCall] = useLogoutMutation();
   const dispatch = useDispatch();
 
-
   const submitLogout = async () => {
 
     try{
@@ -27,20 +26,45 @@ const index = () => {
   }
 
   return (
-    <View>
+    <View style={styles.center}>
         
       <Link href="Settings/one">News 1</Link>
       <Link href="Settings/two">News 1</Link>
       <Link href="Settings/three">News 1</Link>
 
-      <Pressable onPress={submitLogout}>
+
+      <Link href="Settings/UpdateProfile">Update Profile</Link>
+
+      <Pressable onPress={submitLogout} style={styles.button}>
         <Text>Logout</Text>
       </Pressable>
-
-      <Link href="Settings/UpdateProfile">News 1</Link>
 
     </View>
   )
 }
+
+const styles = StyleSheet.create({
+  center: {
+    flex: 1,
+    alignItems: 'center',
+  },
+  button: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingVertical: 12,
+    paddingHorizontal: 32,
+    borderRadius: 4,
+    elevation: 3,
+    backgroundColor: 'black',
+    marginTop: 20,
+  },
+  text: {
+    fontSize: 16,
+    lineHeight: 21,
+    fontWeight: 'bold',
+    letterSpacing: 0.25,
+    color: 'white',
+  },
+});
 
 export default index

@@ -37,6 +37,8 @@ const index = () => {
         <Text>Logout</Text>
       </Pressable>
 
+      <Link href="Settings/UpdateProfile">News 1</Link>
+
     </View>
   )
 }

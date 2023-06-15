@@ -30,6 +30,8 @@ const index = () => {
     const loginData = {email, password};
     try {
       const loginResult = await login(loginData).unwrap();
+      //const cookieHeader = loginResult.headers.get('Set-Cookie');
+      //console.log(cookieHeader);
       dispatch(setCredentials(loginResult))
     } catch (error: any) {
       console.log(error?.data?.message || error.error)

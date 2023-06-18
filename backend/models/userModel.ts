@@ -20,6 +20,7 @@ const userSchema = mongoose.Schema({
     timestamps: true,
 });
 
+
 // Encrypt password using bcrypt
 userSchema.pre('save', async function (this: any, next: any) {
     if (!this.isModified('password')) {

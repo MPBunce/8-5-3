@@ -5,6 +5,7 @@ const cookieParser = require('cookie-parser');
 const cors = require('cors');
 
 import userRoutes from './routes/userRoutes'
+import workoutRoutes from './routes/workoutRoutes'
 import {notFound, errorHandler} from './middleware/errorMiddleware'
 import connectDB from './config/db';
 import corsOptions from './utils/corsOptions';
@@ -26,6 +27,7 @@ app.use(express.urlencoded({extended: true}))
 app.use(cookieParser())
 
 app.use('/api/users', userRoutes);
+app.use('/api/workouts', workoutRoutes);
 app.get( '/', (req: any, res: any) => res.send('server is running') );
 
 app.use(notFound);

@@ -5,15 +5,16 @@ import { getUserIdFromCookie } from "../middleware/authMiddleware";
 
 const createWorkout = asyncHandler ( async (req: any, res: any) => {
 
-    const testUserId = await getUserIdFromCookie(req);
+    const userId = await getUserIdFromCookie(req);
     console.log("test")
-    console.log(testUserId)
+    console.log(userId)
 
-    const userId = req.body.userId;
-    const compoundName = req.body.compoundName;
-    const repRange = req.body.repRange;
-    const compoundSets = req.body.compoundSets;
-    const accessoryExercises = req.body.accessoryExercises;
+    const {compoundName, repRange, compoundSets, accessoryExercises} = req.body;
+
+    // const compoundName = req.body.compoundName;
+    // const repRange = req.body.repRange;
+    // const compoundSets = req.body.compoundSets;
+    // const accessoryExercises = req.body.accessoryExercises;
 
     console.log(userId, compoundName, repRange, compoundSets, accessoryExercises)
 

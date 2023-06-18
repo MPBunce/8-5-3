@@ -1,7 +1,13 @@
 const asyncHandler = require('express-async-handler');
+
 import Workout from "../models/workoutModel";
+import { getUserIdFromCookie } from "../middleware/authMiddleware";
 
 const createWorkout = asyncHandler ( async (req: any, res: any) => {
+
+    const testUserId = await getUserIdFromCookie(req);
+    console.log("test")
+    console.log(testUserId)
 
     const userId = req.body.userId;
     const compoundName = req.body.compoundName;

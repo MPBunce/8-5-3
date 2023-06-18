@@ -28,4 +28,24 @@ const protect = asyncHandler( async (req: any, res: any, next: any) => {
 
 });
 
-export { protect }
+const getUserIdFromCookie =  async (req: any) => {
+
+    let token;
+    token = req.cookies.jwt;
+
+
+    try {
+
+        const decoded = jwt.verify(token, process.env.JWT_SECRET);
+        req.user = await User.findById(decoded.userId)
+
+    } catch (error) {
+
+        throw new Error('No Token to Find User Id');
+    }
+
+    return req.user._id
+
+};
+
+export { protect, getUserIdFromCookie }

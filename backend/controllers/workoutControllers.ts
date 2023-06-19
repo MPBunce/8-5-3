@@ -6,17 +6,8 @@ import { getUserIdFromCookie } from "../middleware/authMiddleware";
 const createWorkout = asyncHandler ( async (req: any, res: any) => {
 
     const userId = await getUserIdFromCookie(req);
-    console.log("test")
-    console.log(userId)
 
     const {compoundName, repRange, compoundSets, accessoryExercises} = req.body;
-
-    // const compoundName = req.body.compoundName;
-    // const repRange = req.body.repRange;
-    // const compoundSets = req.body.compoundSets;
-    // const accessoryExercises = req.body.accessoryExercises;
-
-    console.log(userId, compoundName, repRange, compoundSets, accessoryExercises)
 
     const workout = await Workout.create({
         userId,
@@ -43,6 +34,61 @@ const createWorkout = asyncHandler ( async (req: any, res: any) => {
 
 });
 
+const readWorkouts = asyncHandler ( async (req: any, res: any) => {
+
+    const userId = await getUserIdFromCookie(req);
+
+    const {compoundName, repRange, compoundSets, accessoryExercises} = req.body;
+
+    const workout = await Workout.create({
+        userId,
+        compoundName,
+        repRange,
+        compoundSets,
+        accessoryExercises
+    });
+
+
+
+});
+
+const updateWorkout = asyncHandler ( async (req: any, res: any) => {
+
+    const userId = await getUserIdFromCookie(req);
+
+    const {compoundName, repRange, compoundSets, accessoryExercises} = req.body;
+
+    const workout = await Workout.create({
+        userId,
+        compoundName,
+        repRange,
+        compoundSets,
+        accessoryExercises
+    });
+
+
+
+});
+
+const daleteWorkout = asyncHandler ( async (req: any, res: any) => {
+
+    const userId = await getUserIdFromCookie(req);
+
+    const {compoundName, repRange, compoundSets, accessoryExercises} = req.body;
+
+    const workout = await Workout.create({
+        userId,
+        compoundName,
+        repRange,
+        compoundSets,
+        accessoryExercises
+    });
+
+
+});
+
 export {
     createWorkout,
+    updateWorkout,
+
 }

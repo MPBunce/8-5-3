@@ -20,16 +20,21 @@ const WorkoutSchemeSchema = new Schema({
         type: [Number],
         required: false,
     },
-    accessoryExercises: {
+    accessoryExercises: [{
 
         exerciseName: {
             type: String,
+            required: false
+        },
+        setsAndReps: [{
+            weight: {
 
-        },
-        setsAndReps: {
-            type: [[Number]]
-        },
-    }
+            },
+            reps: {
+
+            }
+        }]
+    }]
     
 },{
     timestamps: true,

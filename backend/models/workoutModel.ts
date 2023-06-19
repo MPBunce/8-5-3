@@ -28,10 +28,12 @@ const WorkoutSchemeSchema = new Schema({
         },
         setsAndReps: [{
             weight: {
-
+                type: Number,
+                required: false
             },
             reps: {
-
+                type: Number,
+                required: false
             }
         }]
     }]

@@ -57,7 +57,15 @@ const updateWorkout = asyncHandler ( async (req: any, res: any) => {
     const {compoundName, repRange, compoundSets, accessoryExercises} = req.body;
     console.log(compoundName, repRange, compoundSets, accessoryExercises)
 
+    const workout = await Workout.findById(req.params.id)
+    if(!workout){
+        res.status(400)
+    }
 
+    console.log(req.params.id)
+
+    const updatedWorkout = await Workout.findByIdAndUpdate(req.params.id, req.body, {new: true})
+    res.status(200).json(updatedWorkout)
 
 });
 

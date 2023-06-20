@@ -1,12 +1,14 @@
-import { View, Text } from 'react-native'
+import { View, Text, ScrollView } from 'react-native'
 import React, { useEffect } from 'react'
 
 const CreateWorkout = () => {
 
   return (
-    <View>
+    <ScrollView>
+
+
       <Text>Create A WORKOUT</Text>
-    </View>
+    </ScrollView>
   )
 }
 

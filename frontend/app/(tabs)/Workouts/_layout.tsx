@@ -26,11 +26,11 @@ const StackLayout = () => {
           headerTitle: 'Workouts',
           headerShown: true,
           headerLeft: () => null,
-            headerRight: () => (
-                <TouchableOpacity onPress={() => navigation.navigate('CreateWorkout')}>
-                    <FontAwesome5 name="plus" />
-                </TouchableOpacity>
-            ),   
+          headerRight: () => (
+              <TouchableOpacity onPress={() => navigation.navigate('CreateWorkout')}>
+                  <FontAwesome5 name="plus" size={25}/>
+              </TouchableOpacity>
+          ),   
       }}/>
       <Stack.Screen name='CreateWorkout' options={{
           headerTitle: 'CreateWorkout',

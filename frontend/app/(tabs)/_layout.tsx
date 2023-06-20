@@ -2,6 +2,7 @@ import { Tabs } from "expo-router";
 import { FontAwesome5 } from "@expo/vector-icons";
 import { useSelector } from 'react-redux'
 import { useNavigation, useFocusEffect } from '@react-navigation/native';
+import { TouchableOpacity } from "react-native";
 
 const userInterface = () => {
 
@@ -25,7 +26,7 @@ const userInterface = () => {
                 name="Progress"
                 options={{
                     tabBarLabel: 'Progress',
-                    headerTitle: 'Progress',
+                    headerTitle: 'Progress',                 
                     tabBarIcon: ({color, size}) => <FontAwesome5 name="chart-line" size={size} color={color}/>
                 }}
             />
@@ -34,6 +35,7 @@ const userInterface = () => {
                 options={{
                     tabBarLabel: 'Workouts',
                     headerTitle: 'Workouts',
+                    headerShown: false,
                     tabBarIcon: ({color, size}) => <FontAwesome5 name="dumbbell" size={size} color={color}/>
                 }}
             />

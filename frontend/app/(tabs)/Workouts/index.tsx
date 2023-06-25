@@ -11,8 +11,6 @@ const Workouts = () => {
   const {userInfo} = useSelector((state: any) => state.auth);
   const [getWorkouts, {isLoading} ]= useGetWorkoutsMutation();
 
-
-
   const getUsersWorkouts = async () =>{ 
     
     const grabage: any = ""
@@ -42,8 +40,11 @@ const Workouts = () => {
 
       {values.map((item: any, index: any) => (
         <View key={index}>
-          <Text>Compound Name: {item.compoundName}</Text>
-          <Text>Compound Sets: {item.repRange}</Text>
+
+          <Pressable>
+            <Text style={styles.item}>{item.repRange} {item.compoundName} </Text>
+          </Pressable>
+          
         </View>
       ))}
 
@@ -75,6 +76,17 @@ const styles = StyleSheet.create({
     letterSpacing: 0.25,
     color: 'white',
   },
+  item: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingVertical: 12,
+    paddingHorizontal: 32,
+    borderRadius: 4,
+    elevation: 3,
+    backgroundColor: 'grey',
+    marginTop: 20,
+  }
 });
+
 
 export default Workouts

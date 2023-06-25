@@ -5,6 +5,7 @@ import { useSelector } from 'react-redux'
 import { useNavigation, useFocusEffect } from '@react-navigation/native';
 import FontAwesome5 from '@expo/vector-icons/build/FontAwesome5';
 
+
 const StackLayout = () => {
 
   const navigation = useNavigation();
@@ -34,7 +35,13 @@ const StackLayout = () => {
       }}/>
       <Stack.Screen name='CreateWorkout' options={{
           headerTitle: 'CreateWorkout',
-          headerShown: true
+          headerShown: true,
+          headerRight: () => (
+            <TouchableOpacity onPress={ console.log("test") }>
+              <Text>save</Text>
+               {/* <FontAwesome5 name="plus" size={25}/> */}
+            </TouchableOpacity>
+        ),  
       }}/>
 
     </Stack>

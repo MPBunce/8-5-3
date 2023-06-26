@@ -1,28 +1,33 @@
 import { View, Text, Dimensions, ScrollView, StyleSheet, Pressable, TextInput, Button, TouchableOpacity} from 'react-native'
 import React, { forwardRef, useEffect, useImperativeHandle, useRef, useState} from 'react'
 import { SelectList } from 'react-native-dropdown-select-list'
+import { useRoute } from '@react-navigation/native';
+import { useNavigation } from '@react-navigation/native';
 
 const CreateWorkout = (props: any, ref: any) => {
-  
-  const childRef = useRef();
+  const navigation = useNavigation();
+
+  React.useLayoutEffect(() => {
+    navigation.setOptions({
+      headerRight: () => (
+        <TouchableOpacity onPress={testSubmit}>
+          <Text>Save</Text>
+        </TouchableOpacity>
+      ),
+    });
+  }, [navigation]);
 
   const testSubmit = () => {
     console.log('testSubmit function called from child component');
-    // Perform any desired actions
+    console.log("seleced compound:" + selectedCompound)
+    console.log("seleced val:" + selectedValue)
+    console.log("seleced weight:" +sets)
   };
 
-  // Update the child functions when necessary
-  useImperativeHandle(ref, () => ({
-    testSubmit,
-  }), []);
+  const [selectedValue, setSelectedValue] = useState('');
 
 
-  const [selectedValue, setSelectedValue] = useState(null);
-  const handleValueSelect = (value: any) => {
-    setSelectedValue(value);
-  };
-
-  const [ selectedCompound, setSelectedCompound] = useState("");
+  const [ selectedCompound, setSelectedCompound] = useState('');
   const compoundLifts = [
     {key:'1', value:'Squat'},
     {key:'2', value:'Bench'},
@@ -43,6 +48,7 @@ const CreateWorkout = (props: any, ref: any) => {
       updatedSets[index] = text;
       setSets(updatedSets);
     }
+    
   };
 
   return (
@@ -51,7 +57,7 @@ const CreateWorkout = (props: any, ref: any) => {
       <SelectList 
         setSelected={(val: any) => setSelectedCompound(val)} 
         data={compoundLifts} 
-        save="value"
+        save="value"       
         placeholder="Select a compound lift"
       />
 
@@ -59,36 +65,36 @@ const CreateWorkout = (props: any, ref: any) => {
         <TouchableOpacity
           style={[
             styles.button,
-            selectedValue === 8 && styles.selectedButton,
+            selectedValue === '8' && styles.selectedButton,
           ]}
-          onPress={() => handleValueSelect(8)}
+          onPress={() => setSelectedValue('8')}
         >
           <Text style={styles.buttonText}>8</Text>
         </TouchableOpacity>
         <TouchableOpacity
           style={[
             styles.button,
-            selectedValue === 5 && styles.selectedButton,
+            selectedValue === '5' && styles.selectedButton,
           ]}
-          onPress={() => handleValueSelect(5)}
+          onPress={() => setSelectedValue('5')}
         >
           <Text style={styles.buttonText}>5</Text>
         </TouchableOpacity>
         <TouchableOpacity
           style={[
             styles.button,
-            selectedValue === 3 && styles.selectedButton,
+            selectedValue === '3' && styles.selectedButton,
           ]}
-          onPress={() => handleValueSelect(3)}
+          onPress={() => setSelectedValue('3')}
         >
           <Text style={styles.buttonText}>3</Text>
         </TouchableOpacity>
         <TouchableOpacity
           style={[
             styles.button,
-            selectedValue === 1 && styles.selectedButton,
+            selectedValue === '1' && styles.selectedButton,
           ]}
-          onPress={() => handleValueSelect(1)}
+          onPress={() => setSelectedValue('1')}
         >
           <Text style={styles.buttonText}>1</Text>
         </TouchableOpacity>
@@ -103,7 +109,7 @@ const CreateWorkout = (props: any, ref: any) => {
             value={value}
             onChangeText={(text) => handleNumberChange(text, index)}
             keyboardType="numeric"
-            placeholder="Enter a number"
+            placeholder="135"
           />
         </View>
       ))}

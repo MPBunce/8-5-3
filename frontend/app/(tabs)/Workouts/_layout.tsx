@@ -13,16 +13,6 @@ const StackLayout = () => {
   const {userInfo} = useSelector((state: any) => state.auth);
   const myRoute: any = [{ name: 'index' }];
 
-  const childRef = useRef<{ testSubmit: () => void } | null>(null);
-
-  const handleFormSubmission = () => {
-    if (childRef.current) {
-      childRef.current.testSubmit();
-    }
-    console.log("bruh")
-  };
-
-
   useFocusEffect(() => {
     if (userInfo === null) {
       navigation.reset({
@@ -47,16 +37,11 @@ const StackLayout = () => {
 
       <Stack.Screen
         name='CreateWorkout'
+        initialParams={{ fruit: 'apples' }}
         options={{
           headerTitle: 'CreateWorkout',
           headerShown: true,
-          headerRight: () => (
-            <TouchableOpacity onPress={handleFormSubmission}>
-              <Text>Save</Text>
-            </TouchableOpacity>
-          ),  
         }}
-        {...(props: any) => <CreateWorkout {...props} additionalProp="value" />}
       />
 
 

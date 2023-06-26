@@ -1,13 +1,21 @@
 import { View, Text, Dimensions, ScrollView, StyleSheet, Pressable, TextInput, Button, TouchableOpacity} from 'react-native'
-import React, { useEffect, useState} from 'react'
+import React, { forwardRef, useEffect, useImperativeHandle, useRef, useState} from 'react'
 import { SelectList } from 'react-native-dropdown-select-list'
 
-const CreateWorkout = () => {
+const CreateWorkout = (props: any, ref: any) => {
+  
+  const childRef = useRef();
 
   const testSubmit = () => {
-    console.log("test")
-    console.log(selectedValue, selectedCompound)
-  }
+    console.log('testSubmit function called from child component');
+    // Perform any desired actions
+  };
+
+  // Update the child functions when necessary
+  useImperativeHandle(ref, () => ({
+    testSubmit,
+  }), []);
+
 
   const [selectedValue, setSelectedValue] = useState(null);
   const handleValueSelect = (value: any) => {
@@ -36,7 +44,6 @@ const CreateWorkout = () => {
       setSets(updatedSets);
     }
   };
-
 
   return (
     <ScrollView>
@@ -150,4 +157,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default CreateWorkout
+export default forwardRef(CreateWorkout);

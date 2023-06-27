@@ -20,11 +20,28 @@ const CreateWorkout = () => {
   const testSubmit = () => {
     console.log('testSubmit function called from child component');
     console.log("seleced compound:" + selectedCompound)
-    console.log("seleced val:" + selectedValue)
+    console.log("seleced val:" + repRange)
     console.log("seleced weight:" +sets)
+    setRepRange("8")
+    console.log("seleced val:" + repRange)
+    call()
   };
 
-  const [selectedValue, setSelectedValue] = useState('');
+  useEffect(() => {
+    console.log("Selected value:", repRange);
+    console.log("Selected compound:", selectedCompound);
+    console.log("Sets:", sets);
+  });
+
+  const call = () => {
+    console.log(
+      "hello"
+    )
+    setRepRange("8")
+    console.log("seleced val:" + repRange)
+  }
+
+  const [repRange, setRepRange] = useState('');
 
   const [ selectedCompound, setSelectedCompound] = useState('');
   const compoundLifts = [
@@ -60,39 +77,45 @@ const CreateWorkout = () => {
       />
 
       <View style={styles.container}>
+
         <TouchableOpacity
           style={[
             styles.button,
-            selectedValue === '8' && styles.selectedButton,
+            repRange === '8' && styles.selectedButton,
           ]}
-          onPress={() => setSelectedValue('8')}
+          onPress={() => 
+            setRepRange('8')
+          }
         >
           <Text style={styles.buttonText}>8</Text>
         </TouchableOpacity>
+        
         <TouchableOpacity
           style={[
             styles.button,
-            selectedValue === '5' && styles.selectedButton,
+            repRange === '5' && styles.selectedButton,
           ]}
-          onPress={() => setSelectedValue('5')}
+          onPress={() => setRepRange('5')}
         >
           <Text style={styles.buttonText}>5</Text>
         </TouchableOpacity>
+
         <TouchableOpacity
           style={[
             styles.button,
-            selectedValue === '3' && styles.selectedButton,
+            repRange === '3' && styles.selectedButton,
           ]}
-          onPress={() => setSelectedValue('3')}
+          onPress={() => setRepRange('3')}
         >
           <Text style={styles.buttonText}>3</Text>
         </TouchableOpacity>
+
         <TouchableOpacity
           style={[
             styles.button,
-            selectedValue === '1' && styles.selectedButton,
+            repRange === '1' && styles.selectedButton,
           ]}
-          onPress={() => setSelectedValue('1')}
+          onPress={() => setRepRange('1')}
         >
           <Text style={styles.buttonText}>1</Text>
         </TouchableOpacity>
@@ -113,7 +136,9 @@ const CreateWorkout = () => {
         ))}
       </View>
 
-      <Text>Accessory</Text>
+      <Text>Accessory {repRange} {selectedCompound} {sets}</Text>
+
+      <TouchableOpacity onPress={call}><Text>bruh</Text></TouchableOpacity>
 
     </ScrollView>
   )

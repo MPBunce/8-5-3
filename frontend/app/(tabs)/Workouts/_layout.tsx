@@ -29,7 +29,7 @@ const StackLayout = () => {
           headerShown: true,
           headerLeft: () => null,
           headerRight: () => (
-              <TouchableOpacity onPress={() => navigation.navigate('CreateWorkout' as never)}>
+              <TouchableOpacity style={{paddingRight:'20px'}} onPress={() => navigation.navigate('CreateWorkout' as never)}>
                   <FontAwesome5 name="plus" size={25}/>
               </TouchableOpacity>
           ),   
@@ -41,6 +41,7 @@ const StackLayout = () => {
         options={{
           headerTitle: 'CreateWorkout',
           headerShown: true,
+
         }}
       />
 

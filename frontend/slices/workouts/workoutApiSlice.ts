@@ -16,11 +16,18 @@ export const workoutApiSlice = apiSlice.injectEndpoints({
           credentials: 'include',
         }),
     }),
-
+    createWorkout: builder.mutation({
+      query: (data: any) => ({
+        url: `${Workouts_URL}`,
+        method: 'POST',
+        body: data,
+      }),
+    }),
 
   }),
 });
 
 export const {
-    useGetWorkoutsMutation
+  useGetWorkoutsMutation,
+  useCreateWorkoutMutation,
 } = workoutApiSlice;

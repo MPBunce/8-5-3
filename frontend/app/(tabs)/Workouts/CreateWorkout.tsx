@@ -3,6 +3,7 @@ import React, { forwardRef, useEffect, useImperativeHandle, useRef, useState} fr
 import { SelectList } from 'react-native-dropdown-select-list'
 import { useRoute } from '@react-navigation/native';
 import { useNavigation } from '@react-navigation/native';
+import { useCreateWorkoutMutation } from '../../../slices/workouts/workoutApiSlice';
 
 const CreateWorkout = () => {
 
@@ -10,40 +11,36 @@ const CreateWorkout = () => {
   React.useLayoutEffect(() => {
     navigation.setOptions({
       headerRight: () => (
-        <TouchableOpacity onPress={testSubmit}>
+        <TouchableOpacity onPress={testSubmit} style={{paddingRight:'20px'}}>
           <Text>Save</Text>
         </TouchableOpacity>
       ),
     });
   }, [navigation]);
 
-  const testSubmit = () => {
-    console.log('testSubmit function called from child component');
-    console.log("seleced compound:" + selectedCompound)
-    console.log("seleced val:" + repRange)
-    console.log("seleced weight:" +sets)
-    setRepRange("8")
-    console.log("seleced val:" + repRange)
-    call()
+  const [createWorkout, {isLoading} ]= useCreateWorkoutMutation();
+
+  const testSubmit = async () => {
+    var data: any = {selectedCompound, repRange, sets}
+    console.log(selectedCompound, repRange, sets)
+    console.log("test")
+    console.log(data)
+    try {
+      createWorkout(data)
+    } catch (error) {
+      console.log(error)
+    }
   };
 
-  useEffect(() => {
-    console.log("Selected value:", repRange);
-    console.log("Selected compound:", selectedCompound);
-    console.log("Sets:", sets);
-  });
-
-  const call = () => {
-    console.log(
-      "hello"
-    )
-    setRepRange("8")
-    console.log("seleced val:" + repRange)
-  }
+  // useEffect(() => {
+  //   console.log("Selected value:", repRange);
+  //   console.log("Selected compound:", selectedCompound);
+  //   console.log("Sets:", sets);
+  // });
 
   const [repRange, setRepRange] = useState('');
-
   const [ selectedCompound, setSelectedCompound] = useState('');
+
   const compoundLifts = [
     {key:'1', value:'Squat'},
     {key:'2', value:'Bench'},
@@ -67,7 +64,7 @@ const CreateWorkout = () => {
   };
 
   return (
-    <ScrollView>
+    <ScrollView style={styles.margin}>
 
       <SelectList 
         setSelected={setSelectedCompound} 
@@ -130,7 +127,7 @@ const CreateWorkout = () => {
               value={value}
               onChangeText={(text) => handleNumberChange(text, index)}
               keyboardType="numeric"
-              placeholder="135"
+              placeholder=""
             />
           </View>
         ))}
@@ -138,13 +135,17 @@ const CreateWorkout = () => {
 
       <Text>Accessory {repRange} {selectedCompound} {sets}</Text>
 
-      <TouchableOpacity onPress={call}><Text>bruh</Text></TouchableOpacity>
+      <TouchableOpacity><Text>bruh </Text></TouchableOpacity>
 
     </ScrollView>
   )
+
 }
 
 const styles = StyleSheet.create({
+  margin:{
+    margin: '10px'
+  },
   container: {
     flexDirection: 'row',
     justifyContent: 'space-around',
@@ -186,4 +187,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default forwardRef(CreateWorkout);
+export default CreateWorkout;

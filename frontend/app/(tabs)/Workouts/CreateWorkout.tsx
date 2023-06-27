@@ -8,36 +8,9 @@ import { useCreateWorkoutMutation } from '../../../slices/workouts/workoutApiSli
 const CreateWorkout = () => {
 
   const navigation = useNavigation();
-  React.useLayoutEffect(() => {
-    navigation.setOptions({
-      headerRight: () => (
-        <TouchableOpacity onPress={testSubmit} style={{paddingRight:'20px'}}>
-          <Text>Save</Text>
-        </TouchableOpacity>
-      ),
-    });
-  }, [navigation]);
 
   const [createWorkout, {isLoading} ]= useCreateWorkoutMutation();
-
-  const testSubmit = async () => {
-    var data: any = {selectedCompound, repRange, sets}
-    console.log(selectedCompound, repRange, sets)
-    console.log("test")
-    console.log(data)
-    try {
-      createWorkout(data)
-    } catch (error) {
-      console.log(error)
-    }
-  };
-
-  // useEffect(() => {
-  //   console.log("Selected value:", repRange);
-  //   console.log("Selected compound:", selectedCompound);
-  //   console.log("Sets:", sets);
-  // });
-
+  
   const [repRange, setRepRange] = useState('');
   const [ selectedCompound, setSelectedCompound] = useState('');
 
@@ -62,6 +35,29 @@ const CreateWorkout = () => {
     }
     
   };
+
+  const testSubmit = async () => {
+    var data: any = {selectedCompound, repRange, sets}
+    console.log(selectedCompound, repRange, sets)
+    console.log("test")
+    console.log(data)
+    try {
+      createWorkout(data)
+    } catch (error) {
+      console.log(error)
+    }
+  };
+
+  React.useLayoutEffect(() => {
+    navigation.setOptions({
+      headerRight: () => (
+        <TouchableOpacity onPress={testSubmit} style={{paddingRight:'20px'}}>
+          <Text>Save</Text>
+        </TouchableOpacity>
+      ),
+    });
+    //add date in here so that the button can access it
+  }, [navigation, selectedCompound, repRange, sets ]);
 
   return (
     <ScrollView style={styles.margin}>
@@ -135,7 +131,7 @@ const CreateWorkout = () => {
 
       <Text>Accessory {repRange} {selectedCompound} {sets}</Text>
 
-      <TouchableOpacity><Text>bruh </Text></TouchableOpacity>
+      <TouchableOpacity onPress={ () => {testSubmit() }}><Text>bruh </Text></TouchableOpacity>
 
     </ScrollView>
   )

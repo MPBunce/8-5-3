@@ -4,9 +4,9 @@ import { SelectList } from 'react-native-dropdown-select-list'
 import { useRoute } from '@react-navigation/native';
 import { useNavigation } from '@react-navigation/native';
 
-const CreateWorkout = (props: any, ref: any) => {
-  const navigation = useNavigation();
+const CreateWorkout = () => {
 
+  const navigation = useNavigation();
   React.useLayoutEffect(() => {
     navigation.setOptions({
       headerRight: () => (
@@ -26,7 +26,6 @@ const CreateWorkout = (props: any, ref: any) => {
 
   const [selectedValue, setSelectedValue] = useState('');
 
-
   const [ selectedCompound, setSelectedCompound] = useState('');
   const compoundLifts = [
     {key:'1', value:'Squat'},
@@ -39,7 +38,6 @@ const CreateWorkout = (props: any, ref: any) => {
   ]
 
   const [sets, setSets] = useState(['', '', '']);
-
   const handleNumberChange = (text: any, index: any) => {
     // Validate input to allow only numbers
     const regex = /^[0-9]*$/;
@@ -55,7 +53,7 @@ const CreateWorkout = (props: any, ref: any) => {
     <ScrollView>
 
       <SelectList 
-        setSelected={(val: any) => setSelectedCompound(val)} 
+        setSelected={setSelectedCompound} 
         data={compoundLifts} 
         save="value"       
         placeholder="Select a compound lift"
@@ -101,19 +99,19 @@ const CreateWorkout = (props: any, ref: any) => {
       </View>
     
       <View style={styles.containerTwo}>
-      {sets.map((value, index) => (
-        <View key={index} style={styles.setContainer}>
-          <Text style={styles.label}>{`Set ${index + 1}`}</Text>
-          <TextInput
-            style={styles.input}
-            value={value}
-            onChangeText={(text) => handleNumberChange(text, index)}
-            keyboardType="numeric"
-            placeholder="135"
-          />
-        </View>
-      ))}
-    </View>
+        {sets.map((value, index) => (
+          <View key={index} style={styles.setContainer}>
+            <Text style={styles.label}>{`Set ${index + 1}`}</Text>
+            <TextInput
+              style={styles.input}
+              value={value}
+              onChangeText={(text) => handleNumberChange(text, index)}
+              keyboardType="numeric"
+              placeholder="135"
+            />
+          </View>
+        ))}
+      </View>
 
       <Text>Accessory</Text>
 

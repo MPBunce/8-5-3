@@ -12,7 +12,7 @@ const CreateWorkout = () => {
   const [createWorkout, {isLoading} ]= useCreateWorkoutMutation();
   
   const [repRange, setRepRange] = useState('');
-  const [ selectedCompound, setSelectedCompound] = useState('');
+  const [compoundName, setcompoundName] = useState('');
 
   const compoundLifts = [
     {key:'1', value:'Squat'},
@@ -24,28 +24,32 @@ const CreateWorkout = () => {
     {key:'7', value:'Incline Press'},
   ]
 
-  const [sets, setSets] = useState(['', '', '']);
+  const [compoundSets, setcompoundSets] = useState(['', '', '']);
   const handleNumberChange = (text: any, index: any) => {
     // Validate input to allow only numbers
     const regex = /^[0-9]*$/;
     if (regex.test(text) || text === '') {
-      const updatedSets = [...sets];
+      const updatedSets = [...compoundSets];
       updatedSets[index] = text;
-      setSets(updatedSets);
+      setcompoundSets(updatedSets);
     }
     
   };
 
   const testSubmit = async () => {
-    var data: any = {selectedCompound, repRange, sets}
-    console.log(selectedCompound, repRange, sets)
-    console.log("test")
+    var data: any = {compoundName, repRange, compoundSets}
     console.log(data)
     try {
       createWorkout(data)
     } catch (error) {
       console.log(error)
     }
+    
+    navigation.reset({
+      index: 0,
+      routes: [{ name: 'Workouts' as never}],
+    });
+
   };
 
   React.useLayoutEffect(() => {
@@ -57,13 +61,13 @@ const CreateWorkout = () => {
       ),
     });
     //add date in here so that the button can access it
-  }, [navigation, selectedCompound, repRange, sets ]);
+  }, [navigation, compoundName, repRange, compoundSets ]);
 
   return (
     <ScrollView style={styles.margin}>
 
       <SelectList 
-        setSelected={setSelectedCompound} 
+        setSelected={setcompoundName} 
         data={compoundLifts} 
         save="value"       
         placeholder="Select a compound lift"
@@ -115,7 +119,7 @@ const CreateWorkout = () => {
       </View>
     
       <View style={styles.containerTwo}>
-        {sets.map((value, index) => (
+        {compoundSets.map((value, index) => (
           <View key={index} style={styles.setContainer}>
             <Text style={styles.label}>{`Set ${index + 1}`}</Text>
             <TextInput
@@ -129,7 +133,7 @@ const CreateWorkout = () => {
         ))}
       </View>
 
-      <Text>Accessory {repRange} {selectedCompound} {sets}</Text>
+      <Text>Accessory {repRange} {compoundName} {compoundSets}</Text>
 
       <TouchableOpacity onPress={ () => {testSubmit() }}><Text>bruh </Text></TouchableOpacity>
 

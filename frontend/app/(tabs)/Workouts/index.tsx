@@ -3,6 +3,7 @@ import React from 'react'
 import { useGetWorkoutsMutation } from '../../../slices/workouts/workoutApiSlice'
 import { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
+import ItemBox from '../../../components/ItemBox';
 
 const Workouts = () => {
 
@@ -48,6 +49,7 @@ const Workouts = () => {
         </View>
       ))}
 
+      <ItemBox testItem={"Hello"}/>
 
     </View>
   )

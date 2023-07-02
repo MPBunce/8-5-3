@@ -4,6 +4,7 @@ import { useGetWorkoutsMutation } from '../../../slices/workouts/workoutApiSlice
 import { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import ItemBox from '../../../components/ItemBox';
+import { Link } from 'expo-router';
 
 const Workouts = () => {
 
@@ -41,15 +42,15 @@ const Workouts = () => {
 
       {values.map((item: any, index: any) => (
         <View key={index}>
-
+        
           <Pressable>
-            <Text style={styles.item}>{item.repRange} {item.compoundName} </Text>
+           
+            <ItemBox id={item._id} compoundName={item.compoundName} repRange={item.repRange}/>
+       
           </Pressable>
           
         </View>
       ))}
-
-      <ItemBox testItem={"Hello"}/>
 
     </View>
   )

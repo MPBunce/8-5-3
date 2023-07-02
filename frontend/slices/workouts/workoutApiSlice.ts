@@ -23,6 +23,14 @@ export const workoutApiSlice = apiSlice.injectEndpoints({
         body: data,
       }),
     }),
+    deleteWorkout: builder.mutation({
+      query: (workoutId: any) => ({
+        url: `${Workouts_URL}/${workoutId}`,
+        method: 'DELETE',
+
+      }),
+    }),
+
 
   }),
 });
@@ -30,4 +38,5 @@ export const workoutApiSlice = apiSlice.injectEndpoints({
 export const {
   useGetWorkoutsMutation,
   useCreateWorkoutMutation,
+  useDeleteWorkoutMutation,
 } = workoutApiSlice;

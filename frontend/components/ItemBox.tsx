@@ -1,15 +1,70 @@
-import { PanGestureHandler, State, Swipeable } from 'react-native-gesture-handler';
-import { View, Text, TouchableOpacity, Animated } from 'react-native';
-import { useRef, useState } from 'react';
-
+import React, { useRef, useState } from 'react';
+import { Text, TouchableOpacity, Animated, PanResponder } from 'react-native';
+import { Swipeable } from 'react-native-gesture-handler';
+import { useDeleteWorkoutMutation } from '../slices/workouts/workoutApiSlice';
+import { useNavigation } from '@react-navigation/native';
 
 const ItemBox = (props: any) => {
+
+  const navigation = useNavigation<any>();
+  
+  const [deleteWorkout, { isLoading }] = useDeleteWorkoutMutation();
   const swipeableRef: any = useRef(null);
   const deleteButtonWidth = 80; // Width of the delete button in pixels
+  const [isDeleteButtonOpen, setIsDeleteButtonOpen] = useState(false);
 
   const closeSwipeable = () => {
     swipeableRef.current?.close();
+    setIsDeleteButtonOpen(false);
   };
+
+  const handleDeletePress = async () => {
+    // Perform delete action here
+    closeSwipeable();
+    console.log('delete');
+    console.log(props.id);
+
+    try {
+      console.log('test');
+      await deleteWorkout(props.id).unwrap();
+    } catch (error) {
+      console.log('error');
+      console.log(error);
+    }
+  };
+
+  const handleItemPress = () => {
+    if (!isDeleteButtonOpen) {
+      navigation.navigate('EditWorkout', { workoutId: props.id } as any);
+    }
+  };
+
+  const handleSwipeableWillOpen = () => {
+    setIsDeleteButtonOpen(true);
+    console.log(isDeleteButtonOpen);
+  };
+
+  const handleSwipeableWillClose = () => {
+    setIsDeleteButtonOpen(false);
+    console.log('handle close:');
+    console.log(isDeleteButtonOpen);
+
+  };
+
+  const panResponder = useRef(
+    PanResponder.create({
+      onStartShouldSetPanResponderCapture: () => {
+        return !isDeleteButtonOpen;
+      },
+      onMoveShouldSetPanResponderCapture: (_, gestureState) => {
+        return (
+          Math.abs(gestureState.dx) > Math.abs(gestureState.dy) &&
+          Math.abs(gestureState.dx) > 5 &&
+          !isDeleteButtonOpen
+        );
+      },
+    })
+  ).current;
 
   const renderRightActions = (progress: any, dragX: any) => {
     const trans = dragX.interpolate({
@@ -18,13 +73,20 @@ const ItemBox = (props: any) => {
       extrapolate: 'clamp',
     });
   
+    const animateTrans = Animated.timing(trans, {
+      toValue: 0,
+      duration: 300, // Adjust the duration as needed
+      useNativeDriver: true,
+    });
+  
+    // Trigger the animation when the swipeable is open
+    if (progress > 0) {
+      animateTrans.start();
+    }
+  
     return (
       <TouchableOpacity
-        onPress={() => {
-          // Perform delete action here
-          closeSwipeable();
-          console.log("delete")
-        }}
+        onPress={handleDeletePress}
         style={{
           width: deleteButtonWidth,
           backgroundColor: 'red',
@@ -48,9 +110,6 @@ const ItemBox = (props: any) => {
       </TouchableOpacity>
     );
   };
-  
-  
-  
 
   return (
     <Swipeable
@@ -58,8 +117,11 @@ const ItemBox = (props: any) => {
       friction={2}
       rightThreshold={40}
       renderRightActions={renderRightActions}
+      onSwipeableWillOpen={handleSwipeableWillOpen}
+      onSwipeableWillClose={handleSwipeableWillClose}
     >
-      <View
+      <TouchableOpacity
+        onPress={handleItemPress}
         style={{
           height: 50,
           justifyContent: 'center',
@@ -67,12 +129,14 @@ const ItemBox = (props: any) => {
           borderBottomWidth: 1,
           borderBottomColor: '#ccc',
         }}
+        {...panResponder.panHandlers}
       >
-        <Text>{props.testItem}</Text>
-      </View>
+        <Text>
+          {props.compoundName} {props.repRange}
+        </Text>
+      </TouchableOpacity>
     </Swipeable>
   );
 };
-
 
 export default ItemBox;

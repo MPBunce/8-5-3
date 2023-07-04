@@ -1,7 +1,8 @@
 import { View, Text, TouchableOpacity, ScrollView, StyleSheet, TextInput } from 'react-native';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useRoute, RouteProp, useNavigation } from '@react-navigation/native';
 import { SelectList } from 'react-native-dropdown-select-list';
+import { useUpdateWorkoutMutation } from '../../../slices/workouts/workoutApiSlice';
 
 // Define the ParamList 
 type ParamList = {
@@ -16,6 +17,8 @@ const EditWorkout = () => {
   const [editMode, setEditMode] = useState(false);
   const route = useRoute<RouteProp<ParamList, 'EditWorkout'>>();
   const workout: any = route.params?.workout;
+
+  const [updateWorkout, {isLoading} ]= useUpdateWorkoutMutation();
 
   React.useLayoutEffect(() => {
     navigation.setOptions({
@@ -34,16 +37,29 @@ const EditWorkout = () => {
     // Logic for saving the changes
     console.log('Save button pressed');
     setEditMode(!editMode)
+    var data: any = {compoundName, repRange, compoundSets}
+    var id = workout._id
+    var args: any ={ id, data}
+    console.log(data)
+    try {
+      updateWorkout(args)
+    } catch (error) {
+      console.log(error)
+    }
+
   };
 
   const handleEdit = () => {
     // Logic for editing the workout
     console.log('Edit button pressed');
     setEditMode(!editMode)
+
+    console.log(repRange)
+    console.log(workout.repRange)
   };
 
 
-  const [repRange, setRepRange] = useState(workout.repRange);
+  const [repRange, setRepRange] = useState( String(workout.repRange) );
   const [compoundName, setcompoundName] = useState(workout.compoundName);
 
   const compoundLifts = [
@@ -56,7 +72,7 @@ const EditWorkout = () => {
     {key:'7', value:'Incline Press'},
   ]
 
-  const [compoundSets, setcompoundSets] = useState(['', '', '']);
+  const [compoundSets, setcompoundSets] = useState(workout.compoundSets);
   const handleNumberChange = (text: any, index: any) => {
     // Validate input to allow only numbers
     const regex = /^[0-9]*$/;
@@ -143,7 +159,7 @@ const EditWorkout = () => {
             </View>
           
             <View style={styles.containerTwo}>
-              {compoundSets.map((value, index) => (
+              {compoundSets.map((value: any, index: any) => (
                 <View key={index} style={styles.setContainer}>
                   <Text style={styles.label}>{`Set ${index + 1}`}</Text>
                   <TextInput

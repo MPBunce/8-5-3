@@ -30,7 +30,13 @@ export const workoutApiSlice = apiSlice.injectEndpoints({
 
       }),
     }),
-
+    updateWorkout: builder.mutation({
+      query: (args: { workoutId: any; data: any }) => ({
+        url: `${Workouts_URL}/${args.workoutId}`,
+        method: 'PUT',
+        body: args.data,
+      }),
+    })    
 
   }),
 });
@@ -39,4 +45,5 @@ export const {
   useGetWorkoutsMutation,
   useCreateWorkoutMutation,
   useDeleteWorkoutMutation,
+  useUpdateWorkoutMutation
 } = workoutApiSlice;

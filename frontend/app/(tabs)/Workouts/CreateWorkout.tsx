@@ -8,7 +8,6 @@ import { useCreateWorkoutMutation } from '../../../slices/workouts/workoutApiSli
 const CreateWorkout = () => {
 
   const navigation = useNavigation();
-
   const [createWorkout, {isLoading} ]= useCreateWorkoutMutation();
   
   const [repRange, setRepRange] = useState('');
@@ -133,9 +132,6 @@ const CreateWorkout = () => {
         ))}
       </View>
 
-      <Text>Accessory {repRange} {compoundName} {compoundSets}</Text>
-
-      <TouchableOpacity onPress={ () => {testSubmit() }}><Text>bruh </Text></TouchableOpacity>
 
     </ScrollView>
   )

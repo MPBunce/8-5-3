@@ -45,7 +45,7 @@ const Workouts = () => {
         
           <Pressable>
            
-            <ItemBox id={item._id} compoundName={item.compoundName} repRange={item.repRange}/>
+            <ItemBox workout={item}/>
        
           </Pressable>
           

@@ -35,7 +35,7 @@ const ItemBox = (props: any) => {
 
   const handleItemPress = () => {
     if (!isDeleteButtonOpen) {
-      navigation.navigate('EditWorkout', { workoutId: props.id } as any);
+      navigation.navigate('EditWorkout', { workout: props.workout } as any);
     }
   };
 
@@ -132,7 +132,7 @@ const ItemBox = (props: any) => {
         {...panResponder.panHandlers}
       >
         <Text>
-          {props.compoundName} {props.repRange}
+          {props.workout.compoundName} {props.workout.repRange}
         </Text>
       </TouchableOpacity>
     </Swipeable>

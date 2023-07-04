@@ -5,6 +5,7 @@ module.exports = function (api) {
     plugins: [
       require.resolve("expo-router/babel"),
       ["@babel/plugin-proposal-decorators", { "legacy": true }],
+      ["@babel/plugin-transform-export-namespace-from"],
     ],
   };
 };

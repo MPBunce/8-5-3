@@ -1,10 +1,17 @@
 import { View, Text } from 'react-native';
 import React from 'react';
-import { useRoute } from '@react-navigation/native';
+import { useRoute, RouteProp } from '@react-navigation/native';
+
+// Define the ParamList 
+type ParamList = {
+  EditWorkout: {
+    workoutId: string;
+  };
+};
 
 const EditWorkout = () => {
-  const route = useRoute();
-  const workoutId = route.params.workoutId;
+  const route = useRoute<RouteProp<ParamList, 'EditWorkout'>>();
+  const workoutId: any = route.params?.workoutId;
 
   return (
     <View>

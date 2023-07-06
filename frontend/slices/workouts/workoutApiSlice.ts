@@ -36,7 +36,7 @@ export const workoutApiSlice = apiSlice.injectEndpoints({
         method: 'PUT',
         body: args.data,
       }),
-    })    
+    })  
 
   }),
 });

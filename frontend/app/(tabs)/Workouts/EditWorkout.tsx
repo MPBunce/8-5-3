@@ -20,33 +20,25 @@ const EditWorkout = () => {
 
   const [updateWorkout, {isLoading} ]= useUpdateWorkoutMutation();
 
-  React.useLayoutEffect(() => {
-    navigation.setOptions({
-      headerRight: () => (
-        <TouchableOpacity
-          onPress={editMode ? handleSave : handleEdit}
-          style={{ paddingRight: 20 }}
-        >
-          <Text>{editMode ? 'Save' : 'Edit'}</Text>
-        </TouchableOpacity>
-      ),
-    });
-  }, [navigation, editMode]);
-
-  const handleSave = () => {
-    // Logic for saving the changes
+  const handleSave = async () => {
     console.log('Save button pressed');
-    setEditMode(!editMode)
-    var data: any = {compoundName, repRange, compoundSets}
-    var id = workout._id
-    var args: any ={ id, data}
-    console.log(data)
+    setEditMode(!editMode);
+  
+    const data = {
+      compoundName,
+      repRange,
+      compoundSets
+    };
+  
+    const workoutId = workout._id; // Assuming `workout` object contains a valid `_id` property
+  
+    console.log(workoutId, data);
     try {
-      updateWorkout(args)
+      await updateWorkout({ workoutId, data }).unwrap();
+      console.log('Workout updated successfully');
     } catch (error) {
-      console.log(error)
+      console.log('Error updating workout:', error);
     }
-
   };
 
   const handleEdit = () => {
@@ -84,10 +76,23 @@ const EditWorkout = () => {
     
   };
 
+  React.useLayoutEffect(() => {
+    navigation.setOptions({
+      headerRight: () => (
+        <TouchableOpacity
+          onPress={editMode ? handleSave : handleEdit}
+          style={{ paddingRight: 20 }}
+        >
+          <Text>{editMode ? 'Save' : 'Edit'}</Text>
+        </TouchableOpacity>
+      ),
+    });
+  }, [navigation, editMode, workout, compoundName, compoundSets, repRange ]);
+
   return (
     <ScrollView>
       <View>
-        <Text>EditWorkout - Workout ID: {workout._id}</Text>
+        <Text>EditWorkout - Workout ID: {workout._id} {compoundName} {repRange} {compoundSets}</Text>
         { !editMode ? 
           <>
             <Text>{ workout.compoundName } { workout.repRange }</Text>

@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { useRoute, RouteProp, useNavigation } from '@react-navigation/native';
 import { SelectList } from 'react-native-dropdown-select-list';
 import { useUpdateWorkoutMutation } from '../../../slices/workouts/workoutApiSlice';
+import { FontAwesome5 } from '@expo/vector-icons';
 
 // Define the ParamList 
 type ParamList = {
@@ -76,6 +77,10 @@ const EditWorkout = () => {
     
   };
 
+  const handleBack = () => {
+    navigation.goBack();
+  };
+
   React.useLayoutEffect(() => {
     navigation.setOptions({
       headerRight: () => (
@@ -88,6 +93,21 @@ const EditWorkout = () => {
       ),
     });
   }, [navigation, editMode, workout, compoundName, compoundSets, repRange ]);
+
+  React.useLayoutEffect(() => {
+    navigation.setOptions({
+      headerLeft: () => (
+        <TouchableOpacity
+        onPress={editMode ? handleEdit: handleBack}
+        style={{ paddingLeft: 20 }}
+        >
+          <Text>{editMode ? 'Cancel' : <FontAwesome5 name="arrow-left" size={20} color={'black'}/> }</Text>
+        </TouchableOpacity>
+      ),
+    });
+  }, [navigation, editMode]);
+  
+
 
   return (
     <ScrollView>

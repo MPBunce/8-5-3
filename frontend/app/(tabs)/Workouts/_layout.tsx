@@ -37,15 +37,27 @@ const StackLayout = () => {
 
       <Stack.Screen
         name='CreateWorkout'
-        initialParams={{ fruit: 'apples' }}
         options={{
           headerTitle: 'CreateWorkout',
           headerShown: true,
-
         }}
       />
 
+      <Stack.Screen
+        name='EditWorkout'
+        options={{
+          headerTitle: 'EditWorkout',
+          headerShown: true,
+        }}
+      />
 
+      <Stack.Screen
+        name='AddAccessory'
+        options={{
+          headerTitle: 'AddAccessory',
+          headerShown: true,
+        }}
+      />
 
     </Stack>
   )

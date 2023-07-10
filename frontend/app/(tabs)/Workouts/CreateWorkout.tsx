@@ -4,6 +4,9 @@ import { SelectList } from 'react-native-dropdown-select-list'
 import { useRoute } from '@react-navigation/native';
 import { useNavigation } from '@react-navigation/native';
 import { useCreateWorkoutMutation } from '../../../slices/workouts/workoutApiSlice';
+import { FontAwesome5 } from '@expo/vector-icons';
+
+
 
 const CreateWorkout = () => {
 
@@ -61,6 +64,24 @@ const CreateWorkout = () => {
     });
     //add date in here so that the button can access it
   }, [navigation, compoundName, repRange, compoundSets ]);
+
+  const [accessory, setAccessory] = useState([])
+
+  const test = (input: any) => {
+    console.log("tEST")
+    const newAccessories: any = [...accessory, input];
+    setAccessory(newAccessories);
+  }
+
+  const addAccessory = () => {
+    navigation.navigate('AddAccessory', { function: test } as any);
+  }
+
+  const editAccessory = (index: any, exercise: any) => {
+    console.log(index, exercise)
+    navigation.navigate('EditAccessory', { function: test, index: index, exercise: exercise } as any);    
+  }
+
 
   return (
     <ScrollView style={styles.margin}>
@@ -132,10 +153,29 @@ const CreateWorkout = () => {
         ))}
       </View>
 
+      <View style={styles.row}>
+        <Text >Accessory Movements</Text>
+        <Pressable onPress={ addAccessory } style={styles.buttonAcc}>
+          <FontAwesome5 name="plus" size={20} color={'black'}/>
+        </Pressable>
+      </View>
+
+      <View >
+        {accessory.map((exercise, index) => (
+          <TouchableOpacity
+            key={index}
+
+            onPress={() => {editAccessory(index, exercise)} }
+          >
+            <Text>{index} {exercise}</Text>
+          </TouchableOpacity>
+        ))}
+      </View>
+
+      <Pressable onPress={() => console.log(accessory)}><Text>nice</Text></Pressable>
 
     </ScrollView>
   )
-
 }
 
 const styles = StyleSheet.create({
@@ -181,6 +221,32 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     paddingHorizontal: 10,
   },
+  row: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    marginBottom: 8,
+  },
+  buttonAcc: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 20,
+    width: 20,
+    height: 20,
+  },
+  accContainer: {
+    flex: 1,
+    padding: 16,
+    backgroundColor: '#f0f0f0',
+  },
+  accExerciseButton: {
+    width: '100%',
+    height: 40, // Adjust the height to make the rows thicker
+  },
+  accExerciseButtonText: {
+    fontSize: 16,
+  },
+
 });
 
 export default CreateWorkout;

@@ -66,12 +66,21 @@ const CreateWorkout = () => {
   }, [navigation, compoundName, repRange, compoundSets ]);
 
   const [accessory, setAccessory] = useState([])
-
+  
+  const [accessoryExercises, setAccessoryExercises] = useState<Array<{
+    exerciseName: string;
+    setsAndReps: Array<{ weight?: number; reps?: number }>;
+  }>>([]);
+  
   const test = (input: any) => {
     console.log("tEST")
     const newAccessories: any = [...accessory, input];
     setAccessory(newAccessories);
   }
+
+  const updateAccessory = (input: any) => {
+
+  } 
 
   const addAccessory = () => {
     navigation.navigate('AddAccessory', { function: test } as any);
@@ -79,7 +88,7 @@ const CreateWorkout = () => {
 
   const editAccessory = (index: any, exercise: any) => {
     console.log(index, exercise)
-    navigation.navigate('EditAccessory', { function: test, index: index, exercise: exercise } as any);    
+    navigation.navigate('EditAccessory', { function: updateAccessory, index: index, exercise: exercise } as any);    
   }
 
 

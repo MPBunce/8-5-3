@@ -4,7 +4,7 @@ import { RouteProp, useNavigation, useRoute } from '@react-navigation/native';
 
 type ParamList = {
   Accessory: {
-    func: any;
+    function: any;
     index: any;
     exercise: any;
   };
@@ -13,9 +13,12 @@ type ParamList = {
 const EditAccessory = () => {
 
   const route = useRoute<RouteProp<ParamList, 'Accessory'>>();
-  const { func, index, exercise } = route.params || {}; // Destructure the params object
+  const updateAccessoryExerciseSnR: any = route.params?.function ;
+  const index: any = route.params?.index ;
+  const exercise: any = route.params?.exercise ;
+
   const [compoundSets, setCompoundSets] = useState<string[][]>([[]]);
-  
+
   const navigation = useNavigation();
 
   const handleNumberChange = (text: string, setIndex: number, inputIndex: number) => {
@@ -29,18 +32,25 @@ const EditAccessory = () => {
 
   const handlePress = () => {
     setCompoundSets(prevState => [...prevState, []]);
+
+  };
+
+  const update = (index: number, name: string, setsAndReps: any) => {
+    console.log(index, name, setsAndReps)
+    updateAccessoryExerciseSnR(index, name, setsAndReps);
+    navigation.goBack();
   };
 
   React.useLayoutEffect(() => {
     navigation.setOptions({
       headerRight: () => (
-        <TouchableOpacity onPress={ ()=> console.log(compoundSets)} style={{paddingRight:'20px'}}>
+        <TouchableOpacity onPress={ () => {update(index, exercise, compoundSets)} } style={{paddingRight:'20px'}}>
           <Text>Save</Text>
         </TouchableOpacity>
       ),
     });
     //add date in here so that the button can access it
-  }, [navigation, compoundSets ]);
+  }, [navigation, index, exercise, compoundSets, updateAccessoryExerciseSnR, update ]);
 
   return (
     <ScrollView>

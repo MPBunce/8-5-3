@@ -65,33 +65,42 @@ const CreateWorkout = () => {
     //add date in here so that the button can access it
   }, [navigation, compoundName, repRange, compoundSets ]);
 
-  const [accessory, setAccessory] = useState([])
-
   //use this one
   const [accessoryExercises, setAccessoryExercises] = useState<Array<{
     exerciseName: string;
     setsAndReps: Array<{ weight?: number; reps?: number }>;
   }>>([]);
   
-  const test = (input: any) => {
-    console.log("tEST")
-    const newAccessories: any = [...accessory, input];
-    setAccessory(newAccessories);
-  }
+  const updateAccessoryExercisesName = (newName: string) => {
+    console.log(newName)
+    setAccessoryExercises(prevState => {
+      const newExercises = [...prevState, { exerciseName: newName, setsAndReps: [] }];
+      return newExercises;
+    });
+  };
+  
 
-  const updateAccessory = (input: any) => {
-
-  } 
+  const updateAccessoryExerciseSnR = (index: number, name: string, inputArray: any) => {
+    setAccessoryExercises(prevState => {
+      const newExercises = [...prevState];
+      const updatedExercise = { ...newExercises[index] };
+  
+      updatedExercise.exerciseName = name;
+      updatedExercise.setsAndReps = inputArray;
+  
+      newExercises[index] = updatedExercise;
+      return newExercises;
+    });
+  };  
 
   const addAccessory = () => {
-    navigation.navigate('AddAccessory', { function: test } as any);
+    navigation.navigate('AddAccessory', { function: updateAccessoryExercisesName } as any);
   }
 
   const editAccessory = (index: any, exercise: any) => {
     console.log(index, exercise)
-    navigation.navigate('EditAccessory', { function: updateAccessory, index: index, exercise: exercise } as any);    
+    navigation.navigate('EditAccessory', { function: updateAccessoryExerciseSnR, index: index, exercise: exercise } as any);    
   }
-
 
   return (
     <ScrollView style={styles.margin}>
@@ -171,18 +180,18 @@ const CreateWorkout = () => {
       </View>
 
       <View >
-        {accessory.map((exercise, index) => (
+        {accessoryExercises.map((exercise, index) => (
           <TouchableOpacity
             key={index}
 
-            onPress={() => {editAccessory(index, exercise)} }
+            onPress={() => {editAccessory(index, exercise.exerciseName)} }
           >
-            <Text>{index} {exercise}</Text>
+            <Text>{index} {exercise.exerciseName}</Text>
           </TouchableOpacity>
         ))}
       </View>
 
-      <Pressable onPress={() => console.log(accessory)}><Text>nice</Text></Pressable>
+      <Pressable onPress={() => console.log(accessoryExercises)}><Text>nice</Text></Pressable>
 
     </ScrollView>
   )

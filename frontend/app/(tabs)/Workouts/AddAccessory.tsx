@@ -22,12 +22,13 @@ const AddAccessory = () => {
   };
 
   const route = useRoute<RouteProp<ParamList, 'Accessory'>>();
-  const test = route.params?.function ;
+  const updateAccessoryExercisesName = route.params?.function ;
   const navigation = useNavigation();
   
   const handlePress = (input: any) => {
     // Call the function from the route params
-    test(input)
+    console.log("Handle Press")
+    updateAccessoryExercisesName(input)
     console.log(input)
     navigation.goBack();
   };

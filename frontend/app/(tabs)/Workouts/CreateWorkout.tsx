@@ -66,7 +66,8 @@ const CreateWorkout = () => {
   }, [navigation, compoundName, repRange, compoundSets ]);
 
   const [accessory, setAccessory] = useState([])
-  
+
+  //use this one
   const [accessoryExercises, setAccessoryExercises] = useState<Array<{
     exerciseName: string;
     setsAndReps: Array<{ weight?: number; reps?: number }>;

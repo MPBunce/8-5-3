@@ -1,5 +1,5 @@
 import { View, Text, Pressable, StyleSheet, ScrollView, TextInput, TouchableOpacity } from 'react-native';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { RouteProp, useNavigation, useRoute } from '@react-navigation/native';
 
 type ParamList = {
@@ -17,7 +17,7 @@ const EditAccessory = () => {
   const index: any = route.params?.index ;
   const exercise: any = route.params?.exercise ;
 
-  const [compoundSets, setCompoundSets] = useState<string[][]>([[]]);
+  const [compoundSets, setCompoundSets] = useState<string[][]>([]);
 
   const navigation = useNavigation();
 
@@ -35,16 +35,17 @@ const EditAccessory = () => {
 
   };
 
-  const update = (index: number, name: string, setsAndReps: any) => {
-    console.log(index, name, setsAndReps)
-    updateAccessoryExerciseSnR(index, name, setsAndReps);
+  const update = (index: number,  setsAndReps: any) => {
+    console.log(index, setsAndReps)
+    updateAccessoryExerciseSnR(index,  setsAndReps);
     navigation.goBack();
   };
+
 
   React.useLayoutEffect(() => {
     navigation.setOptions({
       headerRight: () => (
-        <TouchableOpacity onPress={ () => {update(index, exercise, compoundSets)} } style={{paddingRight:'20px'}}>
+        <TouchableOpacity onPress={ () => {update(index, compoundSets)} } style={{paddingRight:'20px'}}>
           <Text>Save</Text>
         </TouchableOpacity>
       ),
@@ -56,7 +57,7 @@ const EditAccessory = () => {
     <ScrollView>
       <View>
         <Text>{index}</Text>
-        <Text>{exercise}</Text>
+        <Text>{exercise.exerciseName}</Text>
       </View>
 
       <View>

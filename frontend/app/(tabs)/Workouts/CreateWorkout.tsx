@@ -39,7 +39,7 @@ const CreateWorkout = () => {
   };
 
   const testSubmit = async () => {
-    var data: any = {compoundName, repRange, compoundSets}
+    var data: any = {compoundName, repRange, compoundSets, accessoryExercises}
     console.log(data)
     try {
       createWorkout(data)
@@ -53,17 +53,6 @@ const CreateWorkout = () => {
     });
 
   };
-
-  React.useLayoutEffect(() => {
-    navigation.setOptions({
-      headerRight: () => (
-        <TouchableOpacity onPress={testSubmit} style={{paddingRight:'20px'}}>
-          <Text>Save</Text>
-        </TouchableOpacity>
-      ),
-    });
-    //add date in here so that the button can access it
-  }, [navigation, compoundName, repRange, compoundSets ]);
 
   //use this one
   const [accessoryExercises, setAccessoryExercises] = useState<Array<{
@@ -79,19 +68,17 @@ const CreateWorkout = () => {
     });
   };
   
-
-  const updateAccessoryExerciseSnR = (index: number, name: string, inputArray: any) => {
+  const updateAccessoryExerciseSnR = (index: number, inputArray: any) => {
     setAccessoryExercises(prevState => {
       const newExercises = [...prevState];
       const updatedExercise = { ...newExercises[index] };
   
-      updatedExercise.exerciseName = name;
       updatedExercise.setsAndReps = inputArray;
   
       newExercises[index] = updatedExercise;
       return newExercises;
     });
-  };  
+  };
 
   const addAccessory = () => {
     navigation.navigate('AddAccessory', { function: updateAccessoryExercisesName } as any);
@@ -101,6 +88,17 @@ const CreateWorkout = () => {
     console.log(index, exercise)
     navigation.navigate('EditAccessory', { function: updateAccessoryExerciseSnR, index: index, exercise: exercise } as any);    
   }
+
+  React.useLayoutEffect(() => {
+    navigation.setOptions({
+      headerRight: () => (
+        <TouchableOpacity onPress={testSubmit} style={{paddingRight:'20px'}}>
+          <Text>Save</Text>
+        </TouchableOpacity>
+      ),
+    });
+    //add date in here so that the button can access it
+  }, [navigation, compoundName, repRange, compoundSets, accessoryExercises ]);
 
   return (
     <ScrollView style={styles.margin}>

@@ -112,25 +112,34 @@ const EditWorkout = () => {
   return (
     <ScrollView>
       <View>
-        <Text>EditWorkout - Workout ID: {workout._id} {compoundName} {repRange} {compoundSets}</Text>
         { !editMode ? 
           <>
             <Text>{ workout.compoundName } { workout.repRange }</Text>
 
-            {workout.compoundSets && workout.compoundSets.map((set: any, index: any) => (
+            { workout.compoundSets.map((set: any, index: any) => (
               <Text key={index}>{set}</Text>
             ))}
 
-            {workout.accessory && workout.compoundSets.map((set: any, index: any) => (
-              <Text key={index}>{set}</Text>
+            {workout.accessoryExercises.map((exercise: any, index: any) => (
+              <View key={exercise._id}>
+                <Text>{exercise.exerciseName}</Text>
+
+                {exercise.setsAndReps.map((setAndRep: any, setIndex: any) => (
+                  <View key={setIndex}>
+                    <Text>{`Set ${setIndex + 1}`}</Text>
+                    <Text>{`Weight: ${setAndRep.weight}`}</Text>
+                    <Text>{`Reps: ${setAndRep.reps}`}</Text>
+                  </View>
+                ))}
+              </View>
             ))}
+
 
           </>
         
           : 
           <>
-            
-            
+        
             <SelectList 
               setSelected={setcompoundName} 
               data={compoundLifts} 

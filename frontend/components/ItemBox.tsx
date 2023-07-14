@@ -21,12 +21,11 @@ const ItemBox = (props: any) => {
   const handleDeletePress = async () => {
     // Perform delete action here
     closeSwipeable();
-    console.log('delete');
-    console.log(props.id);
+    console.log(props.workout._id);
 
     try {
-      console.log('test');
-      await deleteWorkout(props.id).unwrap();
+
+      await deleteWorkout(props.workout._id).unwrap();
     } catch (error) {
       console.log('error');
       console.log(error);

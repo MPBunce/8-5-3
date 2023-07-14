@@ -17,7 +17,7 @@ const EditAccessory = () => {
   const index: any = route.params?.index ;
   const exercise: any = route.params?.exercise ;
 
-  const [compoundSets, setCompoundSets] = useState<string[][]>([]);
+  const [compoundSets, setCompoundSets] = useState<string[][]>(exercise.setsAndReps || []);
 
   const navigation = useNavigation();
 
@@ -33,6 +33,10 @@ const EditAccessory = () => {
   const handlePress = () => {
     setCompoundSets(prevState => [...prevState, []]);
 
+  };
+
+  const handleDeleteSet = (setIndex: number) => {
+    setCompoundSets(prevState => prevState.filter((_, index) => index !== setIndex));
   };
 
   const update = (index: number,  setsAndReps: any) => {
@@ -55,33 +59,55 @@ const EditAccessory = () => {
 
   return (
     <ScrollView>
-      <View>
-        <Text>{index}</Text>
-        <Text>{exercise.exerciseName}</Text>
+      <View style={styles.container}>
+        <Text style={styles.exerciseName}>{exercise.exerciseName}</Text>
+        <Pressable onPress={handlePress} style={styles.addButton}>
+          <Text style={styles.buttonText}>Add Input</Text>
+        </Pressable>
       </View>
 
       <View>
         {compoundSets.map((set, setIndex) => (
-          <View key={setIndex}>
-            <Text>{`Set ${setIndex + 1}`}</Text>
-            <TextInput
-              value={set[0] || ''}
-              onChangeText={text => handleNumberChange(text, setIndex, 0)}
-              keyboardType="numeric"
-              placeholder=""
-            />
-            <TextInput
-              value={set[1] || ''}
-              onChangeText={text => handleNumberChange(text, setIndex, 1)}
-              keyboardType="numeric"
-              placeholder=""
-            />
+          <View key={setIndex} style={styles.setContainer}>
+            <Text style={styles.setNumber}>{`Set ${setIndex + 1}`}</Text>
+
+            <View style={styles.labelContainer}>
+              <Text style={styles.label}>Weight</Text>
+              <Text style={styles.label}>Reps</Text>
+            </View>
+
+            <View style={styles.inputContainer}>
+              <Text style={styles.inputLabel}>lbs</Text>
+              <TextInput
+                value={set[0] || ''}
+                onChangeText={text => handleNumberChange(text, setIndex, 0)}
+                keyboardType="numeric"
+                style={styles.input}
+                placeholder=""
+              />
+              <Text style={styles.inputLabel}>reps</Text>
+              <TextInput
+                value={set[1] || ''}
+                onChangeText={text => handleNumberChange(text, setIndex, 1)}
+                keyboardType="numeric"
+                style={styles.input}
+                placeholder=""
+              />
+
+              <TouchableOpacity
+                onPress={() => handleDeleteSet(setIndex)}
+                style={styles.deleteButton}
+              >
+                <Text style={styles.deleteButtonText}>Delete</Text>
+              </TouchableOpacity>
+
+            </View>
           </View>
         ))}
       </View>
 
-      <Pressable onPress={handlePress}>
-        <Text>Add Input</Text>
+      <Pressable onPress={() => console.log(exercise.setsAndReps)} style={styles.button}>
+        <Text style={styles.buttonText}>Nice</Text>
       </Pressable>
     </ScrollView>
   );
@@ -89,27 +115,69 @@ const EditAccessory = () => {
 
 const styles = StyleSheet.create({
   container: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    padding: 10,
+  },
+  exerciseName: {
     flex: 1,
-    padding: 16,
-    backgroundColor: '#f0f0f0',
   },
-  muscleGroupContainer: {
-    marginBottom: 16,
+  addButton: {
+    marginLeft: 10,
+    padding: 5,
+    backgroundColor: 'lightblue',
+    borderRadius: 5,
   },
-  muscleGroupText: {
-    fontSize: 18,
+  buttonText: {
+    color: 'white',
+    textAlign: 'center',
+  },
+  setContainer: {
+    marginBottom: 10,
+    paddingHorizontal: 10,
+  },
+  setNumber: {
+    marginBottom: 5,
     fontWeight: 'bold',
-    marginBottom: 8,
   },
-  exerciseButton: {
-    backgroundColor: '#fff',
-    paddingVertical: 8,
-    paddingHorizontal: 12,
-    marginBottom: 8,
-    borderRadius: 4,
+  labelContainer: {
+    flexDirection: 'row',
+    marginBottom: 5,
   },
-  exerciseButtonText: {
-    fontSize: 16,
+  label: {
+    flex: 1,
+    fontWeight: 'bold',
+  },
+  inputContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  inputLabel: {
+    marginRight: 10,
+  },
+  input: {
+    width: 100,
+    height: 40,
+    borderWidth: 1,
+    borderColor: 'black',
+    marginRight: 10,
+    padding: 5,
+  },
+  deleteButton: {
+    marginLeft: 10,
+    padding: 5,
+    backgroundColor: 'red',
+    borderRadius: 5,
+  },
+  deleteButtonText: {
+    color: 'white',
+    textAlign: 'center',
+  },
+  button: {
+    padding: 10,
+    backgroundColor: 'lightblue',
+    borderRadius: 5,
   },
 });
 

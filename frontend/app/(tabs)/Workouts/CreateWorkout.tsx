@@ -182,7 +182,7 @@ const CreateWorkout = () => {
           <TouchableOpacity
             key={index}
 
-            onPress={() => {editAccessory(index, exercise.exerciseName)} }
+            onPress={() => {editAccessory(index, exercise)} }
           >
             <Text>{index} {exercise.exerciseName}</Text>
           </TouchableOpacity>

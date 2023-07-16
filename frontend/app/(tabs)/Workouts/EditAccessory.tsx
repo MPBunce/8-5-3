@@ -17,7 +17,9 @@ const EditAccessory = () => {
   const index: any = route.params?.index ;
   const exercise: any = route.params?.exercise ;
 
-  const [compoundSets, setCompoundSets] = useState<string[][]>(exercise.setsAndReps || []);
+  const [compoundSets, setCompoundSets] = useState<string[][]>(
+    exercise.setsAndReps.map((setAndRep: any) => [setAndRep.weight.toString(), setAndRep.reps.toString()]) || []
+  );
 
   const navigation = useNavigation();
 

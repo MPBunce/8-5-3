@@ -1,4 +1,4 @@
-import { View, Text, TouchableOpacity, ScrollView, StyleSheet, TextInput } from 'react-native';
+import { View, Text, TouchableOpacity, ScrollView, StyleSheet, TextInput, Pressable } from 'react-native';
 import React, { useEffect, useState } from 'react';
 import { useRoute, RouteProp, useNavigation } from '@react-navigation/native';
 import { SelectList } from 'react-native-dropdown-select-list';
@@ -81,6 +81,45 @@ const EditWorkout = () => {
     navigation.goBack();
   };
 
+  //use this one
+  const [accessoryExercises, setAccessoryExercises] = useState(workout.accessoryExercises);
+
+  const updateAccessoryExercisesName = (newName: string) => {
+    console.log(newName)
+    setAccessoryExercises((prevState: any) => {
+      const newExercises = [...prevState, { exerciseName: newName, setsAndReps: [] }];
+      return newExercises;
+    });
+  };
+  
+  const updateAccessoryExerciseSnR = (index: number, inputArray: any) => {
+    setAccessoryExercises((prevState: any) => {
+      const newExercises = [...prevState];
+      const updatedExercise = { ...newExercises[index] };
+  
+      const updatedSetsAndReps = inputArray.map((setAndRep: any) => ({
+        weight: setAndRep[0],
+        reps: setAndRep[1],
+      }));
+  
+      updatedExercise.setsAndReps = updatedSetsAndReps;
+  
+      newExercises[index] = updatedExercise;
+      return newExercises;
+    });
+  };
+  
+
+  const addAccessory = () => {
+    navigation.navigate('AddAccessory', { function: updateAccessoryExercisesName } as any);
+  }
+
+  const editAccessory = (index: any, exercise: any) => {
+    console.log(index, exercise)
+    navigation.navigate('EditAccessory', { function: updateAccessoryExerciseSnR, index: index, exercise: exercise } as any);    
+  }
+
+
   React.useLayoutEffect(() => {
     navigation.setOptions({
       headerRight: () => (
@@ -107,8 +146,6 @@ const EditWorkout = () => {
     });
   }, [navigation, editMode]);
   
-
-
   return (
     <ScrollView>
       <View>
@@ -208,6 +245,28 @@ const EditWorkout = () => {
             </View>
 
 
+            <View style={styles.row}>
+              <Text >Accessory Movements</Text>
+              <Pressable onPress={ addAccessory } style={styles.buttonAcc}>
+                <FontAwesome5 name="plus" size={20} color={'black'}/>
+              </Pressable>
+            </View>
+
+            <View >
+              {accessoryExercises.map((exercise: any, index: any) => (
+                <TouchableOpacity
+                  key={index}
+
+                  onPress={() => {editAccessory(index, exercise)} }
+                >
+                  <Text>{index} {exercise.exerciseName}</Text>
+                </TouchableOpacity>
+              ))}
+            </View>
+
+            <Pressable onPress={() => console.log(accessoryExercises)}><Text>nice</Text></Pressable>
+
+
           </>
         }
       </View>
@@ -257,6 +316,31 @@ const styles = StyleSheet.create({
     borderColor: 'gray',
     borderWidth: 1,
     paddingHorizontal: 10,
+  },
+  row: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    marginBottom: 8,
+  },
+  buttonAcc: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 20,
+    width: 20,
+    height: 20,
+  },
+  accContainer: {
+    flex: 1,
+    padding: 16,
+    backgroundColor: '#f0f0f0',
+  },
+  accExerciseButton: {
+    width: '100%',
+    height: 40, // Adjust the height to make the rows thicker
+  },
+  accExerciseButtonText: {
+    fontSize: 16,
   },
 });
 

@@ -73,12 +73,18 @@ const CreateWorkout = () => {
       const newExercises = [...prevState];
       const updatedExercise = { ...newExercises[index] };
   
-      updatedExercise.setsAndReps = inputArray;
+      const updatedSetsAndReps = inputArray.map((setAndRep: any) => ({
+        weight: setAndRep[0],
+        reps: setAndRep[1],
+      }));
+  
+      updatedExercise.setsAndReps = updatedSetsAndReps;
   
       newExercises[index] = updatedExercise;
       return newExercises;
     });
   };
+  
 
   const addAccessory = () => {
     navigation.navigate('AddAccessory', { function: updateAccessoryExercisesName } as any);

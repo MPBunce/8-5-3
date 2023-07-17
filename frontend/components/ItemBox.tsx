@@ -131,7 +131,7 @@ const ItemBox = (props: any) => {
         {...panResponder.panHandlers}
       >
         <Text>
-          {props.workout.compoundName} {props.workout.repRange}
+          {props.workout.compoundName} {props.workout.repRange}  {props.workout.createdAt}
         </Text>
       </TouchableOpacity>
     </Swipeable>

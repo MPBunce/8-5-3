@@ -28,7 +28,8 @@ const EditWorkout = () => {
     const data = {
       compoundName,
       repRange,
-      compoundSets
+      compoundSets,
+      accessoryExercises
     };
   
     const workoutId = workout._id; // Assuming `workout` object contains a valid `_id` property
@@ -131,7 +132,7 @@ const EditWorkout = () => {
         </TouchableOpacity>
       ),
     });
-  }, [navigation, editMode, workout, compoundName, compoundSets, repRange ]);
+  }, [navigation, editMode, workout, compoundName, compoundSets, repRange, accessoryExercises]);
 
   React.useLayoutEffect(() => {
     navigation.setOptions({
@@ -150,28 +151,27 @@ const EditWorkout = () => {
     <ScrollView>
       <View>
         { !editMode ? 
-          <>
-            <Text>{ workout.compoundName } { workout.repRange }</Text>
 
-            { workout.compoundSets.map((set: any, index: any) => (
-              <Text key={index}>{set}</Text>
+          <>
+            <Text style={styles.margin}>{workout.compoundName} {workout.repRange}</Text>
+
+            {workout.compoundSets.map((set: any, index: any) => (
+              <Text key={index} style={styles.margin}>{set}</Text>
             ))}
 
             {workout.accessoryExercises.map((exercise: any, index: any) => (
-              <View key={exercise._id}>
-                <Text>{exercise.exerciseName}</Text>
+              <View key={exercise._id} style={styles.margin}>
+                <Text style={styles.margin}>{exercise.exerciseName}</Text>
 
                 {exercise.setsAndReps.map((setAndRep: any, setIndex: any) => (
-                  <View key={setIndex}>
-                    <Text>{`Set ${setIndex + 1}`}</Text>
-                    <Text>{`Weight: ${setAndRep.weight}`}</Text>
-                    <Text>{`Reps: ${setAndRep.reps}`}</Text>
+                  <View key={setIndex} style={styles.setContainer}>
+                    <Text style={styles.margin}>{`Set ${setIndex + 1}`}</Text>
+                    <Text style={styles.margin}>{`Weight: ${setAndRep.weight}`}</Text>
+                    <Text style={styles.margin}>{`Reps: ${setAndRep.reps}`}</Text>
                   </View>
                 ))}
               </View>
             ))}
-
-
           </>
         
           : 
@@ -275,8 +275,8 @@ const EditWorkout = () => {
 };
 
 const styles = StyleSheet.create({
-  margin:{
-    margin: '10px'
+  margin: {
+    margin: 10,
   },
   container: {
     flexDirection: 'row',

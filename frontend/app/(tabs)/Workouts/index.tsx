@@ -8,51 +8,52 @@ import { Link } from 'expo-router';
 
 const Workouts = () => {
 
-  const [values, setValues] = useState<any[]>([]);
-
   const {userInfo} = useSelector((state: any) => state.auth);
   const [getWorkouts, {isLoading} ]= useGetWorkoutsMutation();
 
-  const getUsersWorkouts = async () =>{ 
-    
-    const grabage: any = ""
+  const [myWorkouts, setMyWorkouts] = useState<any[]>([]);
 
-    console.log("staring")
+  useEffect(() => {
+    const fetchWorkouts = async () => {
+      try {
+        const workouts = await getWorkouts("").unwrap();
+        setMyWorkouts(workouts)
+             
+      } catch (error) {
+        console.log("error ")
+        console.log(error)
+      }
+    };
 
-    try {
-      console.log("test ")
-      const workouts = await getWorkouts(grabage).unwrap();
-      console.log(workouts)   
-      setValues(workouts);
-           
-    } catch (error) {
-      console.log("error ")
-      console.log(error)
-    }
+    fetchWorkouts();
+  }, [myWorkouts]);
+
+  const sortedWorkouts = myWorkouts.slice().sort((a, b) => {
+    const dateA = new Date(a.createdAt);
+    const dateB = new Date(b.createdAt);
+    return dateB.getTime() - dateA.getTime();
+  });
 
 
-  }
+  return (    
+    <ScrollView>
+      <View>
 
-  return (
-    <View>
 
-      <Pressable style={styles.button} onPress={getUsersWorkouts}>
-        <Text style={styles.text}>Click to get workouts</Text>
-      </Pressable>
-
-      {values.map((item: any, index: any) => (
-        <View key={index}>
-        
-          <Pressable>
-           
-            <ItemBox workout={item}/>
-       
-          </Pressable>
+        {sortedWorkouts.map((item: any, index: any) => (
+          <View key={index}>
           
-        </View>
-      ))}
+            <Pressable>
+            
+              <ItemBox workout={item}/>
+        
+            </Pressable>
+            
+          </View>
+        ))}
 
-    </View>
+      </View>
+    </ScrollView>
   )
 
 }

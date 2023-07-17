@@ -28,9 +28,9 @@ const index = () => {
   return (
     <View style={styles.center}>
         
-      <Link href="Settings/one">News 1</Link>
-      <Link href="Settings/two">News 1</Link>
-      <Link href="Settings/three">News 1</Link>
+      <Link href="Settings/one">About</Link>
+      <Link href="Settings/two">Download Program</Link>
+      <Link href="Settings/three">Support Application</Link>
 
 
       <Link href="Settings/UpdateProfile">Update Profile</Link>

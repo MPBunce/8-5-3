@@ -11,13 +11,14 @@ type ParamList = {
 const AddAccessory = () => {
 
   const exerciseData = {
-    Chest: ['Dumbell Bench', 'Incline Dumbell Bench', 'Push Ups'],
-    Shoulders: ['Exercise 4', 'Exercise 5', 'Exercise 6'],
-    Back: ['Exercise 4', 'Exercise 5', 'Exercise 6'],
-    Biceps: ['Exercise 4', 'Exercise 5', 'Exercise 6'],
-    Triceps: ['Exercise 4', 'Exercise 5', 'Exercise 6'],
-    Legs: ['Exercise 4', 'Exercise 5', 'Exercise 6'],
-    Abs: ['Exercise 4', 'Exercise 5', 'Exercise 6'],
+    Chest: ['Dumbell Bench', 'Incline Dumbell Bench', 'Push Ups', 'Dips', 'Chest Flys'],
+    Shoulders: ['Shoulder Press', 'Lateral Raises', 'Front Raises', 'Rear Delt Flys'],
+    Back: ['Barbell Row', 'Cable Row', 'Dumbell Row', 'Lat Pull Down', 'Pull Ups', 'Chin Ups'],
+    Biceps: ['Barbell Curl', 'Dumbbell Curl', 'Cable Curls'],
+    Triceps: ['Tricep Pushdown', 'Tricep Extension', 'Skull Crushers'],
+    Legs: ['Front Squat', 'Romanian Deadlift', 'Leg Press', 'Hack Squat', 'Leg Extensions', 'Leg Curl', 'Bulgarian Split Squat', 'Glute Bridge'],
+    Abs: ['Crunches', 'Hanging Leg Raises', 'Planks'],
+    Calfs: ['Seated Calf Raises', 'Standing Calf Raises'],
     // Add more muscle groups and exercises as needed
   };
 

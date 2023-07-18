@@ -3,6 +3,7 @@ import React, { useState } from 'react'
 import { useUpdateUserMutation } from '../../../slices/usersApiSlice'
 import { logout, setCredentials } from '../../../slices/authSlice'
 import { useDispatch, useSelector } from 'react-redux'
+import { useNavigation } from 'expo-router'
 
 
 const UpdateProfile = () => {
@@ -10,36 +11,41 @@ const UpdateProfile = () => {
   const {userInfo} = useSelector((state: any) => state.auth);
   const [updateUserApiCall] = useUpdateUserMutation();
   const dispatch = useDispatch();
-
+  const navigation = useNavigation();
+  
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [passwordConfirm, setPasswordConfirm] = useState("");
 
-    const submitUpdate = async () => {
+  const submitUpdate = async () => {
 
-        const updatedProfile = {name, email, password};
+    const updatedProfile = {name, email, password};
 
-        try {
-            if (password !== passwordConfirm){
-                return;
-            } else{
-                const res = await updateUserApiCall(updatedProfile).unwrap();
-                dispatch( setCredentials(res) )
-            }
-        } catch (error ) {
-            console.log(error)
+    try {
+        if (password !== passwordConfirm){
+            return;
+        } else{
+            const res = await updateUserApiCall(updatedProfile).unwrap();
+            dispatch( setCredentials(res) )
         }
-
-        setName("");
-        setEmail("");
-        setPassword("");
-        setPasswordConfirm("");
+    } catch (error ) {
+        console.log(error)
     }
+
+    setName("");
+    setEmail("");
+    setPassword("");
+    setPasswordConfirm("");
+    navigation.goBack();
+  }
 
   return (
     <View style={styles.center}>
-        
+      
+      <Text>Current Username: {userInfo.name}</Text>
+      <Text>Current Email: {userInfo.email}</Text>
+
         <TextInput
             style={{width: "90%", height: 40, textAlign: 'center', marginTop: 150, borderColor: "black", borderWidth: 1, borderRadius: 10,}}
             placeholder="Update Your Name"
@@ -47,19 +53,19 @@ const UpdateProfile = () => {
             value={name}  
         />
         <TextInput
-            style={{width: "90%", height: 40, textAlign: 'center', marginTop: 50, borderColor: "black", borderWidth: 1, borderRadius: 10,}}
+            style={{width: "90%", height: 40, textAlign: 'center', marginTop: 30, borderColor: "black", borderWidth: 1, borderRadius: 10,}}
             placeholder="Update Your Email"
             onChangeText={ (e: any) => setEmail(e)}
             value={email}  
         />
         <TextInput
-            style={{width: "90%", height: 40, textAlign: 'center', marginTop: 50, borderColor: "black", borderWidth: 1, borderRadius: 10,}}
+            style={{width: "90%", height: 40, textAlign: 'center', marginTop: 30, borderColor: "black", borderWidth: 1, borderRadius: 10,}}
             placeholder="Update Your Password"
             onChangeText={ (e: any) => setPassword(e)}
             value={password}  
         />
         <TextInput
-            style={{width: "90%", height: 40, textAlign: 'center', marginTop: 50, borderColor: "black", borderWidth: 1, borderRadius: 10,}}
+            style={{width: "90%", height: 40, textAlign: 'center', marginTop: 30, borderColor: "black", borderWidth: 1, borderRadius: 10,}}
             placeholder="Confirm Password"
             onChangeText={ (e: any) => setPasswordConfirm(e)}
             value={passwordConfirm}  

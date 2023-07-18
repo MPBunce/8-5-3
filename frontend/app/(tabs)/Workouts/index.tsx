@@ -26,7 +26,7 @@ const Workouts = () => {
     };
 
     fetchWorkouts();
-  }, [myWorkouts]);
+  },[]);
 
   const sortedWorkouts = myWorkouts.slice().sort((a, b) => {
     const dateA = new Date(a.createdAt);
@@ -57,40 +57,6 @@ const Workouts = () => {
   )
 
 }
-
-const styles = StyleSheet.create({
-  center: {
-    flex: 1,
-    alignItems: 'center',
-  },
-  button: {
-    alignItems: 'center',
-    justifyContent: 'center',
-    paddingVertical: 12,
-    paddingHorizontal: 32,
-    borderRadius: 4,
-    elevation: 3,
-    backgroundColor: 'black',
-    marginTop: 20,
-  },
-  text: {
-    fontSize: 16,
-    lineHeight: 21,
-    fontWeight: 'bold',
-    letterSpacing: 0.25,
-    color: 'white',
-  },
-  item: {
-    alignItems: 'center',
-    justifyContent: 'center',
-    paddingVertical: 12,
-    paddingHorizontal: 32,
-    borderRadius: 4,
-    elevation: 3,
-    backgroundColor: 'grey',
-    marginTop: 20,
-  }
-});
 
 
 export default Workouts

@@ -20,7 +20,7 @@ const Progress = () => {
     };
 
     fetchWorkouts();
-  }, [myWorkouts]);
+  },[]);
 
   const sortedWorkouts = myWorkouts.slice().sort((a, b) => {
     const dateA = new Date(a.createdAt);

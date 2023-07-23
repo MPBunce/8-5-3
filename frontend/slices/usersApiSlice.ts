@@ -3,6 +3,9 @@ import { apiSlice } from "./apiSlice";
 //My House
 const USERS_URL = 'http://localhost:7000/api/users'
 
+//My House andriod emulator
+//const USERS_URL = 'http://192.168.2.18:6969/api/users'
+
 //Tenzins House
 //const USERS_URL = 'http://192.168.2.160:6969/api/users'
 

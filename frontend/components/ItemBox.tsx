@@ -3,11 +3,14 @@ import { Text, TouchableOpacity, Animated, PanResponder } from 'react-native';
 import { Swipeable } from 'react-native-gesture-handler';
 import { useDeleteWorkoutMutation } from '../slices/workouts/workoutApiSlice';
 import { useNavigation } from '@react-navigation/native';
+import { useDispatch} from 'react-redux';
+import { deleteSliceWorkout } from '../slices/workouts/workoutApiSlice';
 
 const ItemBox = (props: any) => {
 
   const navigation = useNavigation<any>();
-  
+  const dispatch = useDispatch<any>(); 
+
   const [deleteWorkout, { isLoading }] = useDeleteWorkoutMutation();
   const swipeableRef: any = useRef(null);
   const deleteButtonWidth = 80; // Width of the delete button in pixels
@@ -21,15 +24,15 @@ const ItemBox = (props: any) => {
   const handleDeletePress = async () => {
     // Perform delete action here
     closeSwipeable();
-    console.log(props.workout._id);
+    console.log("Delete id:" + props.workout._id);
 
     try {
-
-      await deleteWorkout(props.workout._id).unwrap();
+      const res = await deleteWorkout(props.workout._id).unwrap();
+      await dispatch( deleteSliceWorkout( res ) )
     } catch (error) {
-      console.log('error');
       console.log(error);
     }
+
   };
 
   const handleItemPress = () => {

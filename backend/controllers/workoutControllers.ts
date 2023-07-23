@@ -20,6 +20,7 @@ const createWorkout = asyncHandler ( async (req: any, res: any) => {
     if(workout){
 
         res.status(201).json({
+            _id: workout._id,
             userId: userId,
             compoundName: compoundName,
             repRange: repRange,
@@ -54,8 +55,13 @@ const updateWorkout = asyncHandler ( async (req: any, res: any) => {
 
     const userId = await getUserIdFromCookie(req);
 
+    if(!userId){
+        throw new Error('NO USER ID')
+    }
+
     const {compoundName, repRange, compoundSets, accessoryExercises} = req.body;
     console.log(compoundName, repRange, compoundSets, accessoryExercises)
+
 
     const workout = await Workout.findById(req.params.id)
     if(!workout){
@@ -71,12 +77,39 @@ const updateWorkout = asyncHandler ( async (req: any, res: any) => {
 
 const deleteWorkout = asyncHandler ( async (req: any, res: any) => {
 
-    //let userId = await getUserIdFromCookie(req);
-    const workout = await Workout.findById(req.params.id)
-    console.log("here")
-    await workout.deleteOne()
-    res.status(200).json({ id: req.params.id })
+    let userId = await getUserIdFromCookie(req);
+    if(!userId){
+        throw new Error('User Not Found')
+    }
 
+    const workout = await Workout.findById(req.params.id)
+
+
+    if(!workout){
+        res.status(400)
+        throw new Error('Workout Not Found')
+    }
+
+    // console.log(userId.value)
+    // console.log(workout.userId.value)
+    // console.log(userId == workout.userId)
+
+    // if(userId.value !== workout.userId.value){
+    //     res.status(400)
+    //     throw new Error('Incorrect User Error')
+    // }
+
+    console.log(workout)
+    try {
+        const res = await workout.deleteOne()     
+
+    } catch (error) {
+        console.log(error)
+        res.status(400).json("Error")
+    }
+
+
+    res.status(200).json({id: req.params.id })
 });
 
 export {

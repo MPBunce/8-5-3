@@ -4,6 +4,8 @@ import { useRoute, RouteProp, useNavigation } from '@react-navigation/native';
 import { SelectList } from 'react-native-dropdown-select-list';
 import { useUpdateWorkoutMutation } from '../../../slices/workouts/workoutApiSlice';
 import { FontAwesome5 } from '@expo/vector-icons';
+import { useDispatch } from 'react-redux';
+import { updateSliceWorkout } from '../../../slices/workouts/workoutApiSlice';
 
 // Define the ParamList 
 type ParamList = {
@@ -14,6 +16,7 @@ type ParamList = {
 
 const EditWorkout = () => {
 
+  const dispatch = useDispatch<any>(); 
   const navigation = useNavigation();
   const [editMode, setEditMode] = useState(false);
   const route = useRoute<RouteProp<ParamList, 'EditWorkout'>>();
@@ -33,10 +36,12 @@ const EditWorkout = () => {
     };
   
     const workoutId = workout._id; // Assuming `workout` object contains a valid `_id` property
-  
-    console.log(workoutId, data);
+
     try {
-      await updateWorkout({ workoutId, data }).unwrap();
+      const res = await updateWorkout({ workoutId, data }).unwrap();
+
+      await dispatch( updateSliceWorkout( res ) )
+
       console.log('Workout updated successfully');
     } catch (error) {
       console.log('Error updating workout:', error);

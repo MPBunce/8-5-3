@@ -5,14 +5,17 @@ import { useRoute } from '@react-navigation/native';
 import { useNavigation } from '@react-navigation/native';
 import { useCreateWorkoutMutation } from '../../../slices/workouts/workoutApiSlice';
 import { FontAwesome5 } from '@expo/vector-icons';
-
+import { useDispatch} from 'react-redux';
+import { createSliceWorkout } from '../../../slices/workouts/workoutApiSlice';
 
 
 const CreateWorkout = () => {
 
   const navigation = useNavigation();
   const [createWorkout, {isLoading} ]= useCreateWorkoutMutation();
-  
+
+  const dispatch = useDispatch<any>(); 
+
   const [repRange, setRepRange] = useState('');
   const [compoundName, setcompoundName] = useState('');
 
@@ -42,7 +45,11 @@ const CreateWorkout = () => {
     var data: any = {compoundName, repRange, compoundSets, accessoryExercises}
     console.log(data)
     try {
-      createWorkout(data)
+
+      const res = await createWorkout(data).unwrap();
+      console.log(res)
+      await dispatch( createSliceWorkout(res) )
+
     } catch (error) {
       console.log(error)
     }

@@ -10,6 +10,7 @@ import { setSliceWorkouts } from '../../../slices/workouts/workoutApiSlice';
 const Workouts = () => {
 
   const {userInfo} = useSelector((state: any) => state.auth);
+  const {userWorkouts} = useSelector((state: any) => state.workouts);
 
   const [getWorkouts, {isLoading} ]= useGetWorkoutsMutation();
   const [myWorkouts, setMyWorkouts] = useState<any[]>([]);
@@ -22,7 +23,7 @@ const Workouts = () => {
         const workouts = await getWorkouts("").unwrap();
         
         await dispatch( setSliceWorkouts(workouts) )
-        setMyWorkouts(workouts)
+        setMyWorkouts(userWorkouts)
         
       } catch (error) {
         console.log("error ")

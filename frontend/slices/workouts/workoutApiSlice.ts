@@ -76,6 +76,7 @@ const workoutSlice = createSlice({
     },
     updateSliceWorkout: (state: any, action: any) => {
       const updatedWorkout = action.payload;
+      console.log("Update:", updatedWorkout)
       const index = state.userWorkouts.findIndex((workout: any) => workout.id === updatedWorkout.id);
 
       if (index !== -1) {

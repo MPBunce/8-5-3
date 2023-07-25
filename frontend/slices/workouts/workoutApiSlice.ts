@@ -3,13 +3,13 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 //My House
-const Workouts_URL = 'http://localhost:7000/api/workouts'
+//const Workouts_URL = 'http://localhost:7000/api/workouts'
 
 //My House andriod emulator
 //const Workouts_URL = 'http://192.168.2.18:6969/api/workouts'
 
 //Tenzins House
-//const Workouts_URL = 'http://192.168.2.160:6969/api/workouts'
+const Workouts_URL = 'http://192.168.2.160:6969/api/workouts'
 
 export const workoutApiSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({

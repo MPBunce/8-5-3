@@ -47,7 +47,7 @@ const CreateWorkout = () => {
     try {
 
       const res = await createWorkout(data).unwrap();
-      console.log(res)
+      console.log("response:  " + res)
       await dispatch( createSliceWorkout(res) )
 
     } catch (error) {

@@ -4,32 +4,24 @@ import { useGetWorkoutsMutation } from '../../slices/workouts/workoutApiSlice';
 import ItemBox from '../../components/ItemBox';
 import ChartBox from '../../components/ChartBox';
 import { ScrollView } from 'react-native-gesture-handler';
+import { useSelector } from 'react-redux';
+import { AsyncLocalStorage } from 'async_hooks';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const Progress = () => {
-  const [getWorkouts, { isLoading }] = useGetWorkoutsMutation();
+
   const [myWorkouts, setMyWorkouts] = useState<any[]>([]);
+  const { userWorkouts } = useSelector((state: any) => state.workouts);
 
   useEffect(() => {
-    const fetchWorkouts = async () => {
-      try {
-        const workouts = await getWorkouts('').unwrap();
-        setMyWorkouts(workouts);
-      } catch (error) {
-        console.log('Error fetching workouts:', error);
-      }
-    };
 
-    fetchWorkouts();
-  },[]);
+    setMyWorkouts(userWorkouts);
 
-  const sortedWorkouts = myWorkouts.slice().sort((a, b) => {
-    const dateA = new Date(a.createdAt);
-    const dateB = new Date(b.createdAt);
-    return dateB.getTime() - dateA.getTime();
-  });
+  }, [userWorkouts]);
+
 
   const groupedWorkouts: any = {};
-  sortedWorkouts.forEach( (workout: any) => {
+  myWorkouts?.forEach( (workout: any) => {
     var {compoundName, repRange, compoundSets, createdAt} = workout
     const key = `${compoundName} ${repRange}s`;
     if (!groupedWorkouts[key]) {

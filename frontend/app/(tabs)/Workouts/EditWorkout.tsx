@@ -4,7 +4,7 @@ import { useRoute, RouteProp, useNavigation } from '@react-navigation/native';
 import { SelectList } from 'react-native-dropdown-select-list';
 import { useUpdateWorkoutMutation } from '../../../slices/workouts/workoutApiSlice';
 import { FontAwesome5 } from '@expo/vector-icons';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { updateSliceWorkout } from '../../../slices/workouts/workoutApiSlice';
 
 // Define the ParamList 
@@ -20,14 +20,28 @@ const EditWorkout = () => {
   const navigation = useNavigation();
   const [editMode, setEditMode] = useState(false);
   const route = useRoute<RouteProp<ParamList, 'EditWorkout'>>();
-  const workout: any = route.params?.workout;
+  const inputWorkout: any = route.params?.workout;
+
+  const workoutsState = useSelector((state: any) => state.workouts);
+  const [workout, setWorkout] = useState<any>(inputWorkout);
+
+  useEffect(() => {
+    if (workoutsState) {
+      // Find the workout with the matching _id from inputWorkout
+      const matchingWorkouts = workoutsState.userWorkouts.filter(
+        (workout: any) => workout._id === inputWorkout._id
+      );
+      if (matchingWorkouts.length > 0) {
+        setWorkout(matchingWorkouts[0]);
+      }
+    }
+  }, [inputWorkout, workoutsState]);
 
   const [updateWorkout, {isLoading} ]= useUpdateWorkoutMutation();
 
   const handleSave = async () => {
-    console.log('Save button pressed');
+    
     setEditMode(!editMode);
-  
     const data = {
       compoundName,
       repRange,
@@ -35,28 +49,22 @@ const EditWorkout = () => {
       accessoryExercises
     };
   
-    const workoutId = workout._id; // Assuming `workout` object contains a valid `_id` property
+    const workoutId = workout._id;
 
     try {
       const res = await updateWorkout({ workoutId, data }).unwrap();
-
       await dispatch( updateSliceWorkout( res ) )
-
-      console.log('Workout updated successfully');
     } catch (error) {
       console.log('Error updating workout:', error);
     }
+    
   };
 
   const handleEdit = () => {
     // Logic for editing the workout
     console.log('Edit button pressed');
     setEditMode(!editMode)
-
-    console.log(repRange)
-    console.log(workout.repRange)
   };
-
 
   const [repRange, setRepRange] = useState( String(workout.repRange) );
   const [compoundName, setcompoundName] = useState(workout.compoundName);
@@ -72,6 +80,7 @@ const EditWorkout = () => {
   ]
 
   const [compoundSets, setcompoundSets] = useState(workout.compoundSets);
+
   const handleNumberChange = (text: any, index: any) => {
     // Validate input to allow only numbers
     const regex = /^[0-9]*$/;
@@ -160,15 +169,15 @@ const EditWorkout = () => {
           <>
             <Text style={styles.margin}>{workout.compoundName} {workout.repRange}</Text>
 
-            {workout.compoundSets.map((set: any, index: any) => (
+            {workout.compoundSets?.map((set: any, index: any) => (
               <Text key={index} style={styles.margin}>{set}</Text>
             ))}
 
-            {workout.accessoryExercises.map((exercise: any, index: any) => (
+            {workout.accessoryExercises?.map((exercise: any, index: any) => (
               <View key={exercise._id} style={styles.margin}>
                 <Text style={styles.margin}>{exercise.exerciseName}</Text>
 
-                {exercise.setsAndReps.map((setAndRep: any, setIndex: any) => (
+                {exercise.setsAndReps?.map((setAndRep: any, setIndex: any) => (
                   <View key={setIndex} style={styles.setContainer}>
                     <Text style={styles.margin}>{`Set ${setIndex + 1}`}</Text>
                     <Text style={styles.margin}>{`Weight: ${setAndRep.weight}`}</Text>

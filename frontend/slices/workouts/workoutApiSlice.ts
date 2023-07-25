@@ -75,15 +75,17 @@ const workoutSlice = createSlice({
       AsyncStorage.setItem('userWorkouts', JSON.stringify(state.userWorkouts));
     },
     updateSliceWorkout: (state: any, action: any) => {
-      const updatedWorkout = action.payload;
-      console.log("Update:", updatedWorkout)
-      const index = state.userWorkouts.findIndex((workout: any) => workout.id === updatedWorkout.id);
-
+      const updatedWorkout = JSON.parse(JSON.stringify(action.payload));
+      const index = state.userWorkouts.findIndex((workout: any) => workout._id === updatedWorkout._id);
+      // Add additional check for index value
       if (index !== -1) {
         state.userWorkouts[index] = updatedWorkout;
         AsyncStorage.setItem('userWorkouts', JSON.stringify(state.userWorkouts));
+      } else {
+        console.log("Workout not found in userWorkouts array");
       }
     },
+    
     deleteSliceWorkout: (state: any, action: any) => {
 
       const workoutIdToDelete = JSON.stringify(action.payload);

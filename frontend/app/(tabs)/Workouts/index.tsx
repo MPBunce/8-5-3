@@ -9,30 +9,12 @@ import { setSliceWorkouts } from '../../../slices/workouts/workoutApiSlice';
 
 const Workouts = () => {
 
-  const {userInfo} = useSelector((state: any) => state.auth);
   const {userWorkouts} = useSelector((state: any) => state.workouts);
-
-  const [getWorkouts, {isLoading} ]= useGetWorkoutsMutation();
   const [myWorkouts, setMyWorkouts] = useState<any[]>([]);
-  const dispatch = useDispatch();
-
 
   useEffect(() => {
-    const fetchWorkouts = async () => {
-      try {
-        const workouts = await getWorkouts("").unwrap();
-        
-        await dispatch( setSliceWorkouts(workouts) )
-        setMyWorkouts(userWorkouts)
-        
-      } catch (error) {
-        console.log("error ")
-        console.log(error)
-      }
-    };
-
-    fetchWorkouts();
-  },[]);
+    setMyWorkouts(userWorkouts);
+  },[userWorkouts]);
 
   const sortedWorkouts = myWorkouts.slice().sort((a, b) => {
     const dateA = new Date(a.createdAt);

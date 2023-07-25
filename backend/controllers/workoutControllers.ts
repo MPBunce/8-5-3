@@ -19,14 +19,7 @@ const createWorkout = asyncHandler ( async (req: any, res: any) => {
 
     if(workout){
 
-        res.status(201).json({
-            _id: workout._id,
-            userId: userId,
-            compoundName: compoundName,
-            repRange: repRange,
-            compoundSets: compoundSets,
-            accessoryExercises: accessoryExercises
-        })
+        res.status(201).json(workout)
 
     } else {
         res.status(400);

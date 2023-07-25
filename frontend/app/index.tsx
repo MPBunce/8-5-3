@@ -8,6 +8,9 @@ import { setCredentials } from '../slices/authSlice';
 import { useSelector } from 'react-redux'
 import { useNavigation, useFocusEffect } from '@react-navigation/native';
 
+import { useGetWorkoutsMutation } from '../slices/workouts/workoutApiSlice';
+import { setSliceWorkouts } from '../slices/workouts/workoutApiSlice';
+
 const index = () => {
 
   const [email, setEmail] = useState('');
@@ -16,14 +19,29 @@ const index = () => {
   const dispatch = useDispatch();
   const navigation = useNavigation();
 
+  const [getWorkouts]= useGetWorkoutsMutation();
   const [login, {isLoading}] = useLoginMutation();
   const {userInfo} = useSelector((state: any) => state.auth);
+  const {workouts} = useSelector((state: any) => state.workouts);
 
   useEffect(() => {
     if (userInfo) {
+
       navigation.navigate('(tabs)' as never);
     }
   });
+
+  const fetchWorkouts = async () => {
+    try {
+
+      const workouts = await getWorkouts("").unwrap();
+      await dispatch( setSliceWorkouts(workouts) )
+      
+    } catch (error) {
+      console.log("error ")
+      console.log(error)
+    }
+  };
 
   const submitLogin = async (e: any) => {
     e.preventDefault();
@@ -34,10 +52,14 @@ const index = () => {
       
       dispatch(setCredentials(loginResult))
 
+      fetchWorkouts();
+
     } catch (error: any) {
       console.log(error?.data?.message || error.error)
     }
   };
+
+  
 
   return (
 
